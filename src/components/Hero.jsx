@@ -18,11 +18,10 @@ const Hero = () => {
         className="text-center z-10 px-4"
       >
         <h1 className="text-4xl md:text-6xl font-playfair text-white mb-4 drop-shadow-lg">
-          Selamat Ulang Tahun, [Nama Pacar] ❤️
+          Celamat Ulang Tahun, Dinda ❤️
         </h1>
         <p className="text-lg md:text-xl font-poppins text-rose-200 mb-8">
-          Website ini adalah hadiah kecil untuk merayakan cinta kita yang tak
-          ternilai.
+          Hadiah kecil dari cowomu yang banyak tingkah ini hehe
         </p>
         <motion.button
           whileHover={{ scale: 1.1 }}
@@ -31,7 +30,7 @@ const Hero = () => {
             window.scrollTo({ top: window.innerHeight, behavior: "smooth" })
           }
         >
-          Mulai Cerita Kita
+          Lanjut klik sini
         </motion.button>
       </motion.div>
 
