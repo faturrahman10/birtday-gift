@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Hero from "./components/Hero";
@@ -14,38 +13,45 @@ import Footer from "./components/Footer";
 import SecretSection from "./components/SecretSection";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false); // Toggle dark mode
-  const [musicPlaying, setMusicPlaying] = useState(false); // Musik toggle
-  const [secretUnlocked, setSecretUnlocked] = useState(false); // Secret section
+  const [darkMode, setDarkMode] = useState(true);
+  const [musicPlaying, setMusicPlaying] = useState(false);
+  const [secretUnlocked, setSecretUnlocked] = useState(false);
 
   useEffect(() => {
-    AOS.init({ duration: 1000, once: true }); // Inisialisasi AOS untuk animasi scroll
+    AOS.init({ duration: 1000, once: true });
   }, []);
 
-  // Custom cursor (hati kecil) - tambahkan CSS di styles.css
+  // Tambahkan atau hapus class .dark di elemen <html>
+  useEffect(() => {
+    const html = document.documentElement;
+    if (darkMode) html.classList.add("dark");
+    else html.classList.remove("dark");
+  }, [darkMode]);
+
+  // Custom cursor
   useEffect(() => {
     const cursor = document.createElement("div");
     cursor.className = "custom-cursor";
     document.body.appendChild(cursor);
-    document.addEventListener("mousemove", (e) => {
+    const move = (e) => {
       cursor.style.left = `${e.clientX}px`;
       cursor.style.top = `${e.clientY}px`;
-    });
-    return () => document.body.removeChild(cursor);
+    };
+    document.addEventListener("mousemove", move);
+    return () => {
+      document.removeEventListener("mousemove", move);
+      document.body.removeChild(cursor);
+    };
   }, []);
 
   return (
-    <div
-      className={`min-h-screen ${
-        darkMode
-          ? "bg-gray-900 text-white"
-          : "bg-gradient-to-br from-peach-100 via-blush-50 to-lavender-100"
-      } transition-all duration-500`}
-    >
-      {/* Musik Latar */}
+    <div className="min-h-screen transition-all duration-500 bg-gradient-to-br from-pink-100 via-rose-50 to-purple-100 dark:from-gray-900 dark:via-gray-950 dark:to-black">
+      {/* Musik */}
       <audio id="bg-music" loop>
         <source src="/audio/romantic-music.mp3" type="audio/mpeg" />
       </audio>
+
+      {/* Tombol Musik */}
       <button
         onClick={() => {
           const audio = document.getElementById("bg-music");
@@ -58,21 +64,21 @@ function App() {
         {musicPlaying ? "🔇" : "🎵"}
       </button>
 
-      {/* Dark Mode Toggle */}
+      {/* Tombol Dark Mode */}
       <button
         onClick={() => setDarkMode(!darkMode)}
-        className="fixed top-4 left-4 z-50 bg-gray-200 p-2 rounded-full shadow-lg hover:bg-gray-300 transition"
+        className="fixed top-4 left-4 z-50 bg-gray-200 dark:bg-gray-700 p-2 rounded-full shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition"
       >
-        {darkMode ? "🌞" : "🌙"}
+        {darkMode ? "🌙" : "🌞"}
       </button>
 
-      {/* Secret Section Trigger (klik 3x logo hati di footer) */}
+      {/* Secret Section */}
       <SecretSection
         unlocked={secretUnlocked}
         setUnlocked={setSecretUnlocked}
       />
 
-      {/* Komponen Utama */}
+      {/* Komponen */}
       <Hero />
       <Timeline />
       <Gallery />
