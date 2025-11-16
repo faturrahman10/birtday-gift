@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Countdown = () => {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
+  const [timeLeft, setTimeLeft] = useState({});
   const [surprise, setSurprise] = useState(false);
 
   useEffect(() => {
-    // Ganti dengan tanggal ulang tahun pacar Anda, misalnya '2024-10-01T00:00:00' untuk 1 Oktober 2024 pukul 00:00
-    const target = new Date("2024-10-01T00:00:00");
+    const target = new Date("2025-10-01T00:00:00");
 
     const interval = setInterval(() => {
       const now = new Date();
@@ -29,92 +23,152 @@ const Countdown = () => {
           seconds: Math.floor((diff % (1000 * 60)) / 1000),
         });
       }
-    }, 1000); // Update setiap detik
+    }, 1000);
 
-    return () => clearInterval(interval); // Cleanup interval saat komponen unmount
+    return () => clearInterval(interval);
   }, []);
 
+  const timeKeys = [
+    { key: "days", label: "Hari" },
+    { key: "hours", label: "Jam" },
+    { key: "minutes", label: "Menit" },
+    { key: "seconds", label: "Detik" },
+  ];
+
   return (
-    <section className="py-20 px-4 md:px-8 text-center bg-gradient-to-br from-rose-50 to-pink-100">
-      <h2 className="text-3xl md:text-4xl font-playfair mb-12 text-gray-800">
-        Countdown to Your Special Day
-      </h2>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-pink-100 to-rose-200 dark:from-gray-900 dark:to-gray-800 px-4">
+      {/* Floating Hearts Background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {Array.from({ length: 20 }).map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-rose-400 dark:text-rose-600 text-2xl"
+            initial={{ opacity: 0, y: 0 }}
+            animate={{
+              opacity: [0, 1, 1, 0],
+              y: [-20, -200, -300],
+              x: (Math.random() - 0.5) * 200,
+            }}
+            transition={{
+              duration: 10 + Math.random() * 10,
+              repeat: Infinity,
+              delay: Math.random() * 10,
+            }}
+            style={{ left: `${Math.random() * 100}%` }}
+          >
+            ❤️
+          </motion.div>
+        ))}
+      </div>
 
       {!surprise ? (
-        <div className="text-2xl md:text-4xl font-poppins text-rose-600">
-          <div className="grid grid-cols-4 gap-4 max-w-md mx-auto">
-            <div className="bg-white p-4 rounded-lg shadow-lg">
-              <p className="text-3xl font-bold">{timeLeft.days}</p>
-              <p className="text-sm">Days</p>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-lg">
-              <p className="text-3xl font-bold">{timeLeft.hours}</p>
-              <p className="text-sm">Hours</p>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-lg">
-              <p className="text-3xl font-bold">{timeLeft.minutes}</p>
-              <p className="text-sm">Minutes</p>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-lg">
-              <p className="text-3xl font-bold">{timeLeft.seconds}</p>
-              <p className="text-sm">Seconds</p>
-            </div>
-          </div>
-          <p className="mt-8 text-lg text-gray-700">
-            Menunggu momen spesial kita... ❤️
-          </p>
-        </div>
-      ) : (
         <motion.div
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1, type: "spring" }}
-          className="text-center"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          className="relative z-10 text-center"
         >
-          {/* Animasi Confetti Sederhana (CSS-based) */}
-          <div className="relative">
-            <div className="absolute inset-0 pointer-events-none">
-              {Array.from({ length: 50 }).map((_, i) => (
+          <h2 className="text-4xl md:text-5xl font-playfair font-bold text-gray-800 dark:text-rose-100 mb-10">
+            Countdown ke Hari Spesial Kamu 💖
+          </h2>
+
+          {/* Time Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+            {timeKeys.map(({ key, label }) => (
+              <motion.div
+                key={key}
+                whileHover={{ scale: 1.05 }}
+                className="
+                  backdrop-blur-xl bg-white/40 dark:bg-gray-700/40 
+                  shadow-xl rounded-2xl p-6 
+                  border border-white/50 dark:border-gray-600/50
+                "
+              >
+                <motion.p
+                  key={timeLeft[key]}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-4xl md:text-5xl font-bold text-rose-600 dark:text-rose-300"
+                >
+                  {timeLeft[key] ?? "0"}
+                </motion.p>
+
+                <p className="text-gray-600 dark:text-gray-300 mt-2 text-sm md:text-base">
+                  {label}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          <p className="mt-10 text-lg md:text-xl text-gray-700 dark:text-gray-300">
+            Aku tidak sabar menunggu momen indah kita berikutnya... ❤️
+          </p>
+        </motion.div>
+      ) : (
+        <AnimatePresence>
+          <motion.div
+            key="surprise"
+            className="relative z-20 text-center max-w-xl mx-auto px-4"
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, type: "spring" }}
+          >
+            {/* Confetti */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+              {Array.from({ length: 60 }).map((_, i) => (
                 <motion.div
                   key={i}
-                  initial={{ y: -10, opacity: 1 }}
-                  animate={{ y: window.innerHeight, opacity: 0 }}
-                  transition={{ duration: 3, delay: Math.random() * 2 }}
-                  className="absolute w-2 h-2 bg-rose-400 rounded-full"
+                  initial={{ y: -50, opacity: 1 }}
+                  animate={{ y: window.innerHeight + 100, opacity: 0 }}
+                  transition={{
+                    duration: 3,
+                    delay: Math.random() * 2,
+                    repeat: Infinity,
+                  }}
+                  className="absolute w-3 h-3 rounded-sm"
                   style={{
                     left: `${Math.random() * 100}%`,
-                    animationDelay: `${Math.random() * 2}s`,
+                    backgroundColor: ["#ff6b81", "#ff4757", "#ffa502"][
+                      Math.floor(Math.random() * 3)
+                    ],
                   }}
                 />
               ))}
             </div>
-            <div className="text-6xl mb-4">🎉✨</div>
-            <h3 className="text-2xl font-playfair text-rose-600 mb-4">
-              Surprise Time!
+
+            <h3 className="text-4xl font-playfair text-rose-600 dark:text-rose-300 mb-6">
+              🎉 Surprise Time! 🎉
             </h3>
-            <p className="text-lg font-poppins text-gray-700 mb-6">
-              Sayang, ini adalah kejutan spesial untukmu: [Tulis pesan romantis
-              panjang Anda di sini, misalnya "Kamu adalah cahaya hidupku, dan
-              hari ini aku ingin memberimu..."]. Klik link rahasia untuk hadiah
-              digital:{" "}
-              <a
-                href="[link ke video/hadiah, misalnya https://drive.google.com/...]"
-                className="text-rose-500 underline hover:text-rose-700 transition"
-              >
-                Buka Hadiah
-              </a>
+
+            <p className="text-lg text-gray-700 dark:text-gray-200 leading-relaxed mb-8">
+              Sayang, ini adalah pesan spesial yang aku siapkan hanya untukmu.
+              Terima kasih sudah menjadi seseorang yang sangat berarti dalam
+              hidupku. Aku bersyukur setiap hari memilikimu.
+              <br />
+              <br />
+              Klik hadiah di bawah ini ya 💝
             </p>
-            <motion.button
+
+            <motion.a
+              href="https://yourgiftlink.com"
+              target="_blank"
               whileHover={{ scale: 1.1 }}
-              className="bg-rose-500 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-rose-600 transition"
-              onClick={() =>
-                alert("Terima kasih telah menjadi bagian hidupku! ❤️")
-              }
+              className="inline-block px-10 py-4 rounded-full bg-rose-500 text-white font-semibold text-lg shadow-lg hover:bg-rose-600 transition"
             >
-              Terima Kasih
-            </motion.button>
-          </div>
-        </motion.div>
+              🎁 Buka Hadiah
+            </motion.a>
+
+            <motion.p
+              className="mt-8 text-gray-600 dark:text-gray-300"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+            >
+              Terima kasih sudah jadi bagian dari hidupku ❤️
+            </motion.p>
+          </motion.div>
+        </AnimatePresence>
       )}
     </section>
   );
