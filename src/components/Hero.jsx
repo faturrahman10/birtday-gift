@@ -105,7 +105,7 @@ const Hero = () => {
             drop-shadow-[0_0_15px_rgba(255,192,203,0.8)]
           "
         >
-          🎂 Selamat Ulang Tahun, Dinda{" "}
+          🎂 Celamat Ulang Tahun, Dinda{" "}
           <motion.span
             initial={{ scale: 1, rotate: 0 }}
             animate={{
@@ -141,7 +141,7 @@ const Hero = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 1 }}
         >
-          Hadiah kecil dari cowokmu yang paling cerewet tapi sayang banget 😚
+          Hadiah kecil dari cowomu yang banyak tingkah 😚
         </motion.p>
 
         <motion.button
