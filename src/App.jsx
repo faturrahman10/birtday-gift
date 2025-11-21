@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+
 import Hero from "./components/Hero";
 import Timeline from "./components/Timeline";
 import Gallery from "./components/Gallery";
@@ -15,70 +16,95 @@ import SecretSection from "./components/SecretSection";
 function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [musicPlaying, setMusicPlaying] = useState(false);
-  const [secretUnlocked, setSecretUnlocked] = useState(false);
+  const [audioLoaded, setAudioLoaded] = useState(false);
 
+  const audioRef = useRef(null);
+
+  // AOS Animation
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
 
-  // Tambahkan atau hapus class .dark di elemen <html>
+  // Dark Mode Toggle
   useEffect(() => {
     const html = document.documentElement;
     if (darkMode) html.classList.add("dark");
     else html.classList.remove("dark");
   }, [darkMode]);
 
-  // Custom cursor
+  // Load Audio
   useEffect(() => {
-    const cursor = document.createElement("div");
-    cursor.className = "custom-cursor";
-    document.body.appendChild(cursor);
-    const move = (e) => {
-      cursor.style.left = `${e.clientX}px`;
-      cursor.style.top = `${e.clientY}px`;
+    const audio = audioRef.current;
+
+    if (!audio) return;
+
+    const onLoaded = () => {
+      console.log("AUDIO LOADED SUCCESS");
+      setAudioLoaded(true);
     };
-    document.addEventListener("mousemove", move);
+
+    audio.addEventListener("loadeddata", onLoaded);
+    audio.load();
+
     return () => {
-      document.removeEventListener("mousemove", move);
-      document.body.removeChild(cursor);
+      audio.removeEventListener("loadeddata", onLoaded);
     };
   }, []);
 
+  // Play/Pause Music
+  const toggleMusic = async () => {
+    const audio = audioRef.current;
+    if (!audioLoaded) return;
+
+    try {
+      if (musicPlaying) {
+        audio.pause();
+      } else {
+        await audio.play();
+      }
+      setMusicPlaying(!musicPlaying);
+    } catch (err) {
+      console.log("PLAYBACK ERROR:", err);
+    }
+  };
+
   return (
-    <div className="min-h-screen transition-all duration-500 bg-gradient-to-br from-pink-100 via-rose-50 to-purple-100 dark:from-gray-900 dark:via-gray-950 dark:to-black">
-      {/* Musik */}
-      <audio id="bg-music" loop>
-        <source src="/audio/romantic-music.mp3" type="audio/mpeg" />
+    <div
+      className="min-h-screen transition-all duration-500 
+      bg-gradient-to-br from-pink-100 via-rose-50 to-purple-100 
+      dark:from-gray-900 dark:via-gray-950 dark:to-black"
+    >
+      {/* MUSIC (LOCAL MP3) */}
+      <audio ref={audioRef} preload="auto" loop>
+        <source
+          src="/audio/Nadhif-Basalamah-bergema-sampai-selamanya.mp3"
+          type="audio/mpeg"
+        />
       </audio>
 
-      {/* Tombol Musik */}
+      {/* MUSIC BUTTON */}
       <button
-        onClick={() => {
-          const audio = document.getElementById("bg-music");
-          if (musicPlaying) audio.pause();
-          else audio.play();
-          setMusicPlaying(!musicPlaying);
-        }}
-        className="fixed top-4 right-4 z-50 bg-rose-300 p-2 rounded-full shadow-lg hover:bg-rose-400 transition"
+        onClick={toggleMusic}
+        disabled={!audioLoaded}
+        className="fixed top-4 right-4 z-50 bg-rose-300 
+        p-2 rounded-full shadow-lg hover:bg-rose-400 transition disabled:opacity-50"
       >
-        {musicPlaying ? "🔇" : "🎵"}
+        {!audioLoaded ? "⏳" : musicPlaying ? "🎵" : "🔇"}
       </button>
 
-      {/* Tombol Dark Mode */}
+      {/* DARK MODE BUTTON */}
       <button
         onClick={() => setDarkMode(!darkMode)}
-        className="fixed top-4 left-4 z-50 bg-gray-200 dark:bg-gray-700 p-2 rounded-full shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+        className="fixed top-4 left-4 z-50 bg-gray-200 dark:bg-gray-700 
+        p-2 rounded-full shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition"
       >
         {darkMode ? "🌙" : "🌞"}
       </button>
 
-      {/* Secret Section */}
-      <SecretSection
-        unlocked={secretUnlocked}
-        setUnlocked={setSecretUnlocked}
-      />
+      {/* SECRET SECTION */}
+      <SecretSection />
 
-      {/* Komponen */}
+      {/* CONTENT */}
       <Hero />
       <Timeline />
       <Gallery />
@@ -87,7 +113,7 @@ function App() {
       <Quiz />
       <TimeCapsule />
       <Countdown />
-      <Footer setSecretUnlocked={setSecretUnlocked} />
+      <Footer />
     </div>
   );
 }
