@@ -13,35 +13,43 @@ const Gallery = () => {
     "/images/mem6.jpg",
   ];
 
+  const randomSizes = ["h-32", "h-40", "h-48", "h-56", "h-64", "h-72"];
+
   return (
     <section className="py-20 px-4 md:px-8 bg-gradient-to-b from-rose-50 via-pink-50 to-white dark:from-gray-900 dark:via-gray-950 dark:to-black transition-colors duration-700">
       <h2 className="text-3xl md:text-4xl font-playfair text-center mb-12 text-gray-800 dark:text-rose-100">
         Kenangan Kita 💞
       </h2>
 
-      {/* Grid Gallery */}
-      <div className="columns-2 md:columns-3 gap-4 max-w-6xl mx-auto space-y-4">
-        {images.map((img, index) => (
-          <motion.div
-            key={index}
-            whileHover={{ scale: 1.03, rotate: 0.3 }}
-            transition={{ duration: 0.3 }}
-            className="relative overflow-hidden rounded-2xl cursor-pointer group shadow-md"
-            onClick={() => setLightbox(img)}
-          >
-            <img
-              src={img}
-              alt={`Memory ${index}`}
-              className="w-full rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:brightness-75"
-            />
-            {/* Overlay teks kecil saat hover */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition duration-300">
-              <span className="opacity-0 group-hover:opacity-100 text-white text-sm font-medium tracking-wide">
-                Klik untuk melihat 💖
-              </span>
-            </div>
-          </motion.div>
-        ))}
+      {/* Masonry Gallery */}
+      <div className="columns-2 md:columns-4 gap-4 max-w-6xl mx-auto space-y-4">
+        {images.map((img, index) => {
+          const sizeClass =
+            randomSizes[Math.floor(Math.random() * randomSizes.length)];
+
+          return (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.03, rotate: 0.3 }}
+              transition={{ duration: 0.3 }}
+              className={`relative overflow-hidden rounded-2xl cursor-pointer group shadow-md ${sizeClass}`}
+              onClick={() => setLightbox(img)}
+            >
+              <img
+                src={img}
+                alt={`Memory ${index}`}
+                className="w-full h-full object-cover rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:brightness-75"
+              />
+
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition duration-300">
+                <span className="opacity-0 group-hover:opacity-100 text-white text-sm font-medium tracking-wide">
+                  Klik untuk melihat 💖
+                </span>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* Lightbox */}
@@ -64,7 +72,7 @@ const Gallery = () => {
               transition={{ duration: 0.3 }}
               className="max-w-[90%] max-h-[85%] rounded-xl shadow-2xl object-contain border border-white/20"
             />
-            {/* Tombol close */}
+
             <button
               onClick={() => setLightbox(null)}
               className="absolute top-6 right-6 text-white text-3xl font-light hover:scale-110 transition"
