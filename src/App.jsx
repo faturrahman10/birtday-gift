@@ -18,24 +18,25 @@ function App() {
   const [musicPlaying, setMusicPlaying] = useState(false);
   const [audioLoaded, setAudioLoaded] = useState(false);
 
+  const [introDone, setIntroDone] = useState(false);
+
   const audioRef = useRef(null);
 
-  // AOS Animation
+  // AOS
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
 
-  // Dark Mode Toggle
+  // Dark mode
   useEffect(() => {
     const html = document.documentElement;
     if (darkMode) html.classList.add("dark");
     else html.classList.remove("dark");
   }, [darkMode]);
 
-  // Load Audio
+  // Load audio
   useEffect(() => {
     const audio = audioRef.current;
-
     if (!audio) return;
 
     const onLoaded = () => {
@@ -46,35 +47,47 @@ function App() {
     audio.addEventListener("loadeddata", onLoaded);
     audio.load();
 
-    return () => {
-      audio.removeEventListener("loadeddata", onLoaded);
-    };
+    return () => audio.removeEventListener("loadeddata", onLoaded);
   }, []);
 
-  // Play/Pause Music
+  // Trigger setelah user klik "Lanjutkan"
+  const startWebsite = async () => {
+    if (audioLoaded && audioRef.current) {
+      try {
+        await audioRef.current.play();
+        setMusicPlaying(true);
+      } catch (e) {
+        console.log("ERROR AUTOPLAY:", e);
+      }
+    }
+
+    setIntroDone(true);
+  };
+
+  // Toggle music
   const toggleMusic = async () => {
-    const audio = audioRef.current;
     if (!audioLoaded) return;
+    const audio = audioRef.current;
 
     try {
-      if (musicPlaying) {
-        audio.pause();
-      } else {
-        await audio.play();
-      }
+      if (musicPlaying) audio.pause();
+      else await audio.play();
+
       setMusicPlaying(!musicPlaying);
-    } catch (err) {
-      console.log("PLAYBACK ERROR:", err);
+    } catch (e) {
+      console.log("PLAY ERROR:", e);
     }
   };
 
   return (
     <div
-      className="min-h-screen transition-all duration-500 
-      bg-gradient-to-br from-pink-100 via-rose-50 to-purple-100 
-      dark:from-gray-900 dark:via-gray-950 dark:to-black"
+      className="
+      min-h-screen transition-all duration-500
+      bg-gradient-to-br from-pink-100 via-rose-50 to-purple-100
+      dark:from-gray-900 dark:via-gray-950 dark:to-black
+    "
     >
-      {/* MUSIC (LOCAL MP3) */}
+      {/* MUSIC */}
       <audio ref={audioRef} preload="auto" loop>
         <source
           src="/audio/Nadhif-Basalamah-bergema-sampai-selamanya.mp3"
@@ -82,38 +95,40 @@ function App() {
         />
       </audio>
 
-      {/* MUSIC BUTTON */}
-      <button
-        onClick={toggleMusic}
-        disabled={!audioLoaded}
-        className="fixed top-4 right-4 z-50 bg-rose-300 
-        p-2 rounded-full shadow-lg hover:bg-rose-400 transition disabled:opacity-50"
-      >
-        {!audioLoaded ? "⏳" : musicPlaying ? "🎵" : "🔇"}
-      </button>
+      {/* Jika belum intro → tampilkan COUNTDOWN PAGE */}
+      {!introDone ? (
+        <Countdown onFinish={startWebsite} />
+      ) : (
+        <>
+          {/* MUSIC BUTTON */}
+          <button
+            onClick={toggleMusic}
+            disabled={!audioLoaded}
+            className="fixed top-4 right-4 z-50 bg-rose-300 p-2 rounded-full shadow-lg"
+          >
+            {!audioLoaded ? "⏳" : musicPlaying ? "🎵" : "🔇"}
+          </button>
 
-      {/* DARK MODE BUTTON */}
-      <button
-        onClick={() => setDarkMode(!darkMode)}
-        className="fixed top-4 left-4 z-50 bg-gray-200 dark:bg-gray-700 
-        p-2 rounded-full shadow-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition"
-      >
-        {darkMode ? "🌙" : "🌞"}
-      </button>
+          {/* DARK MODE BUTTON */}
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="fixed top-4 left-4 z-50 bg-gray-200 dark:bg-gray-700 p-2 rounded-full shadow-lg"
+          >
+            {darkMode ? "🌙" : "🌞"}
+          </button>
 
-      {/* SECRET SECTION */}
-      <SecretSection />
-
-      {/* CONTENT */}
-      <Hero />
-      <Timeline />
-      <Gallery />
-      <Letter />
-      <Wishlist />
-      <Quiz />
-      <TimeCapsule />
-      <Countdown />
-      <Footer />
+          {/* CONTENT */}
+          <SecretSection />
+          <Hero />
+          <Timeline />
+          <Gallery />
+          <Letter />
+          <Wishlist />
+          <Quiz />
+          <TimeCapsule />
+          <Footer />
+        </>
+      )}
     </div>
   );
 }
