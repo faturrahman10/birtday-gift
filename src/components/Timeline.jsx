@@ -9,7 +9,7 @@ const Timeline = () => {
       img: "/images/event1.jpg",
     },
     {
-      date: "2020-03-10",
+      date: "2024-08-15",
       title: "Kencan Pertama",
       desc: "Makan malam romantis di bawah cahaya lilin.",
       img: "/images/event2.jpg",
