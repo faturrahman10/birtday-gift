@@ -3,29 +3,29 @@ import React from "react";
 const Timeline = () => {
   const events = [
     {
-      date: "2020-01-15",
-      title: "Pertama Bertemu",
-      desc: "Di kafe itu, dunia berhenti sejenak.",
-      img: "/images/event1.jpg",
+      date: "2024-07-30",
+      title: "Confest",
+      desc: "Dari story mu ini berusahana memberanikan diri walaupun tidak ada komunikasi sebelumnya🤣",
+      img: "/image/first confest.jpg",
     },
     {
-      date: "2024-08-15",
-      title: "Kencan Pertama",
-      desc: "Makan malam romantis di bawah cahaya lilin.",
-      img: "/images/event2.jpg",
+      date: "2024-08-05",
+      title: "First Meet",
+      desc: "Ketemu di alfamaret dengan kecanggungan luar biasa, belum sanggup foto bersama jadi foto diam-diam saja🤣",
+      img: "/image/first meet.jpg",
     },
     {
-      date: "2020-05-02",
-      title: "Liburan Bersama",
-      desc: "Menikmati sunset di pantai berdua.",
-      img: "/images/event3.jpg",
+      date: "Lupa tanggalnya hehe..",
+      title: "First picture together",
+      desc: "Coba-coba liat sunset yang dekat rumah aja haha🤣",
+      img: "/image/first date.jpg",
     },
   ];
 
   return (
     <section className="py-20 px-4 md:px-8 relative overflow-hidden">
-      <h2 className="text-3xl md:text-4xl font-playfair text-center mb-16 text-gray-900 dark:text-gray-100">
-        Perjalanan Kita
+      <h2 className="text-3xl md:text-4xl font-playfair text-center mb-12 text-gray-800 dark:text-rose-100">
+        Timeline
       </h2>
 
       <div className="relative max-w-5xl mx-auto mt-12">
