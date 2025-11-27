@@ -129,7 +129,7 @@ const Countdown = ({ onFinish }) => {
           className="relative z-10 text-center"
         >
           <h2 className="text-4xl md:text-5xl font-playfair font-bold text-gray-800 dark:text-rose-100 mb-10">
-            Sabaar, bantu hitung mundur dulu 💖
+            Sabaar, hitung mundur dulu 💖
           </h2>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
@@ -153,10 +153,13 @@ const Countdown = ({ onFinish }) => {
             ))}
           </div>
 
-          <p className="mt-10 text-lg md:text-xl text-gray-700 dark:text-gray-300">
-            COMING SOON...{" "}
-            <span className="text-rose-600 dark:text-rose-300">
-              7 Januari 2026
+          <p className="mt-10 font-playfair text-gray-800 dark:text-rose-100">
+            <span className="text-md text-rose-600 dark:text-rose-300">
+              7 JANUARI 2026
+            </span>
+            <br />
+            <span className="animate-pulse text-gray-600 dark:text-gray-300 text-base md:text-lg tracking-wider backdrop-blur-xl bg-white/40 dark:bg-gray-700/40 shadow-xl rounded-2xl px-4 py-1 border border-white/60 dark:border-gray-600/60">
+              COMING SOON...
             </span>
           </p>
         </motion.div>
