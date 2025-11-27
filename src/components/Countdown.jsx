@@ -65,7 +65,7 @@ const Countdown = ({ onFinish }) => {
 
   // TIMER
   useEffect(() => {
-    const target = new Date("2026-01-07T00:00:00");
+    const target = new Date("2025-01-07T00:00:00");
 
     const interval = setInterval(() => {
       const now = new Date();
@@ -129,7 +129,7 @@ const Countdown = ({ onFinish }) => {
           className="relative z-10 text-center"
         >
           <h2 className="text-4xl md:text-5xl font-playfair font-bold text-gray-800 dark:text-rose-100 mb-10">
-            Countdown ke Hari Spesial Kamu 💖
+            Sabaar, bantu hitung mundur dulu 💖
           </h2>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
@@ -154,7 +154,10 @@ const Countdown = ({ onFinish }) => {
           </div>
 
           <p className="mt-10 text-lg md:text-xl text-gray-700 dark:text-gray-300">
-            Aku tidak sabar menunggu hari spesial kamu... ❤️
+            COMING SOON...{" "}
+            <span className="text-rose-600 dark:text-rose-300">
+              7 Januari 2026
+            </span>
           </p>
         </motion.div>
       ) : (
@@ -172,12 +175,14 @@ const Countdown = ({ onFinish }) => {
             </h3>
 
             <p className="text-lg text-gray-700 dark:text-gray-200 leading-relaxed mb-8">
-              Sayang, ini adalah pesan spesial yang aku siapkan hanya untukmu.
-              Terima kasih sudah menjadi seseorang yang sangat berarti dalam
-              hidupku.
+              Anjaayy.. welcome back dinda cantikkk!
+              <br />
+              Cieee ultah'i ban, umur kita akhirnya sama🥳, hallo tante dinda
               <br />
               <br />
-              Klik hadiah di bawah ini ya 💝
+              <span className="font-semibold">
+                Klik ini oke yg bawa ini oke
+              </span>
             </p>
 
             <motion.button
@@ -194,7 +199,7 @@ const Countdown = ({ onFinish }) => {
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}
             >
-              Terima kasih sudah jadi bagian dari hidupku ❤️
+              Ma'acii, silahkan lanjut ❤️
             </motion.p>
           </motion.div>
         </AnimatePresence>
