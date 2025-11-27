@@ -65,7 +65,7 @@ const Countdown = ({ onFinish }) => {
 
   // TIMER
   useEffect(() => {
-    const target = new Date("2026-01-07T00:00:00");
+    const target = new Date("2025-01-07T00:00:00");
 
     const interval = setInterval(() => {
       const now = new Date();
@@ -183,17 +183,15 @@ const Countdown = ({ onFinish }) => {
               Cieee ultah'i ban, umur kita akhirnya sama🥳, hallo tante dinda
               <br />
               <br />
-              <span className="font-semibold">
-                Klik ini oke yg bawa ini oke
-              </span>
+              <span className="font-semibold">Klik ini👇</span>
             </p>
 
             <motion.button
               onClick={onFinish}
               whileHover={{ scale: 1.1 }}
-              className="inline-block px-10 py-4 rounded-full bg-rose-500 text-white font-semibold text-lg shadow-lg hover:bg-rose-600 transition"
+              className="inline-block px-8 py-3 rounded-full bg-rose-500 text-white font-semibold text-lg shadow-lg hover:bg-rose-600 transition"
             >
-              🎁 Buka Hadiah
+              🎁 Hadiah
             </motion.button>
 
             <motion.p
