@@ -18,7 +18,7 @@ const Gallery = () => {
   return (
     <section className="py-20 px-4 md:px-8 bg-gradient-to-b from-rose-50 via-pink-50 to-white dark:from-gray-900 dark:via-gray-950 dark:to-black transition-colors duration-700">
       <h2 className="text-3xl md:text-4xl font-playfair text-center mb-12 text-gray-800 dark:text-rose-100">
-        Kenangan Kita 💞
+        Gallery💞
       </h2>
 
       {/* Masonry Gallery */}
