@@ -178,9 +178,11 @@ const Countdown = ({ onFinish }) => {
             </h3>
 
             <p className="text-lg text-gray-700 dark:text-gray-200 leading-relaxed mb-8">
-              Anjaayy.. welcome back dinda cantikkk!
+              Hallo tante dindaa😁
               <br />
-              Cieee ultah'i ban, umur kita akhirnya sama🥳, hallo tante dinda
+              Ciee, balik lagi, 7 januari mi le
+              <br />
+              Ultah'i ban, umur kita akhirnya sama🥳
               <br />
               <br />
               <span className="font-semibold">Klik ini👇</span>
