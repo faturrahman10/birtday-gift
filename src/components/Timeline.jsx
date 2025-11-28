@@ -42,49 +42,69 @@ const Timeline = () => {
 
   return (
     <section className="py-20 px-4 md:px-8 relative overflow-hidden">
-      <h2 className="text-3xl md:text-4xl font-playfair text-center mb-12 text-gray-800 dark:text-rose-100">
+      {/* JUDUL TIMELINE */}
+      <motion.h2
+        className="text-3xl md:text-4xl font-playfair text-center mb-12 text-gray-800 dark:text-rose-100"
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
         Timeline
-      </h2>
+      </motion.h2>
 
       {/* GARIS TENGAH */}
       <div className="relative max-w-5xl mx-auto mt-12 pb-16">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 bg-rose-300 dark:bg-rose-700 h-full rounded-full"></div>
 
         {events.map((event, index) => (
-          <div
+          <motion.div
             key={index}
             className={`mb-16 flex flex-col md:flex-row items-center ${
               index % 2 === 0 ? "md:flex-row-reverse" : ""
             } relative`}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+            viewport={{ once: true }}
           >
             {/* DOT */}
-            <div className="absolute left-1/2 -translate-x-1/2 bg-rose-500 dark:bg-rose-600 w-5 h-5 rounded-full border-[6px] border-white dark:border-gray-900 shadow-md z-10"></div>
+            <motion.div
+              className="absolute left-1/2 -translate-x-1/2 bg-rose-500 dark:bg-rose-600 w-5 h-5 rounded-full border-[6px] border-white dark:border-gray-900 shadow-md z-10"
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.2 + index * 0.15 }}
+            ></motion.div>
 
-            {/* ================================
-                GAMBAR (DEKAT KE GARIS TENGAH)
-            ================================== */}
-            <div
+            {/* GAMBAR */}
+            <motion.div
               className={`
                 md:w-1/2 flex justify-center px-4 mt-10 md:mt-0
                 ${index % 2 === 0 ? "md:mr-10 lg:mr-14" : "md:ml-10 lg:ml-14"}
               `}
+              initial={{ opacity: 0, x: index % 2 === 0 ? 40 : -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
             >
               <img
                 src={event.img}
                 alt={event.title}
                 className="w-44 h-44 md:w-52 md:h-52 rounded-2xl object-cover shadow-lg hover:scale-105 transition duration-300"
               />
-            </div>
+            </motion.div>
 
-            {/* ================================
-                CARD (DEKAT KE GARIS TENGAH)
-            ================================== */}
-            <div
+            {/* CARD TULISAN */}
+            <motion.div
               className={`
                 md:w-1/2 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg mt-6 md:mt-0 
                 text-center md:text-left
                 ${index % 2 === 0 ? "md:mr-10 lg:mr-14" : "md:ml-10 lg:ml-14"}
               `}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
             >
               <h3 className="text-xl md:text-2xl font-semibold text-rose-600 dark:text-rose-400 mb-1">
                 {event.title}
@@ -95,15 +115,23 @@ const Timeline = () => {
               <p className="text-gray-700 dark:text-gray-200 font-poppins">
                 {event.desc}
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         ))}
       </div>
-      {/* CAROUSEL */}
-      <h3 className="text-2xl md:text-3xl font-playfair text-center mt-6 mb-8 text-gray-800 dark:text-rose-200">
-        And Now ❤️
-      </h3>
 
+      {/* JUDUL CAROUSEL */}
+      <motion.h3
+        className="text-2xl md:text-3xl font-playfair text-center mt-6 mb-8 text-gray-800 dark:text-rose-200"
+        initial={{ opacity: 0, y: -10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        And Now ❤️
+      </motion.h3>
+
+      {/* CAROUSEL */}
       <Carousel images={carouselImages} speed={1.0} />
     </section>
   );
