@@ -129,7 +129,7 @@ const Countdown = ({ onFinish }) => {
           className="relative z-10 text-center"
         >
           <h2 className="text-4xl md:text-5xl font-playfair font-bold text-gray-800 dark:text-rose-100 mb-10">
-            Sabaar, hitung mundur dulu 💖
+            Sabar yaah😁 hitung mundur dulu..
           </h2>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
@@ -154,7 +154,7 @@ const Countdown = ({ onFinish }) => {
           </div>
 
           <p className="mt-10 font-playfair text-gray-800 dark:text-rose-100">
-            <span className="text-md text-rose-600 dark:text-rose-300">
+            <span className="text-md text-rose-600 dark:text-rose-300 mb-1 block">
               7 JANUARI 2026
             </span>
             <br />
