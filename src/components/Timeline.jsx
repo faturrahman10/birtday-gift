@@ -26,7 +26,15 @@ const Timeline = () => {
 
   const carouselImages = [
     "/image/first confest.jpg",
+    "/image/first date.jpg",
+    "/image/first date.jpg",
     "/image/first meet.jpg",
+    "/image/first date.jpg",
+    "/image/first confest.jpg",
+    "/image/first date.jpg",
+    "/image/first meet.jpg",
+    "/image/first confest.jpg",
+    "/image/first date.jpg",
     "/image/first date.jpg",
     "/image/carousel/4.jpg",
     "/image/carousel/5.jpg",
@@ -96,7 +104,7 @@ const Timeline = () => {
         And Now ❤️
       </h3>
 
-      <Carousel images={carouselImages} speed={0.35} />
+      <Carousel images={carouselImages} speed={1.0} />
     </section>
   );
 };
