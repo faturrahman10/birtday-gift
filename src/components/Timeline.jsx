@@ -82,9 +82,9 @@ const Timeline = () => {
                 md:w-1/2 flex justify-center px-4 mt-10 md:mt-0
                 ${index % 2 === 0 ? "md:mr-10 lg:mr-14" : "md:ml-10 lg:ml-14"}
               `}
-              initial={{ opacity: 0, x: index % 2 === 0 ? 40 : -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
             >
               <img
@@ -101,9 +101,9 @@ const Timeline = () => {
                 text-center md:text-left
                 ${index % 2 === 0 ? "md:mr-10 lg:mr-14" : "md:ml-10 lg:ml-14"}
               `}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
             >
               <h3 className="text-xl md:text-2xl font-semibold text-rose-600 dark:text-rose-400 mb-1">
