@@ -5,12 +5,30 @@ const Gallery = () => {
   const [lightbox, setLightbox] = useState(null);
 
   const images = [
-    "/images/mem1.jpg",
-    "/images/mem2.jpg",
-    "/images/mem3.jpg",
-    "/images/mem4.jpg",
-    "/images/mem5.jpg",
-    "/images/mem6.jpg",
+    "/image/aib 1.jpg",
+    "/image/aib 2.jpg",
+    "/image/aib 3.jpg",
+    "/image/aib 4.jpg",
+    "/image/aib 5.jpg",
+    "/image/aib 6.jpg",
+    "/image/aib 7.jpg",
+    "/image/aib 8.jpg",
+    "/image/aib 9.jpg",
+    "/image/aib 10.jpg",
+    "/image/aib 11.jpg",
+    "/image/aib 12.jpg",
+    "/image/aib 13.jpg",
+    "/image/aib 14.jpg",
+    "/image/aib 15.jpg",
+    "/image/aib 16.jpg",
+    "/image/aib 17.jpg",
+    "/image/aib 18.jpg",
+    "/image/aib 19.jpg",
+    "/image/aib 20.jpg",
+    "/image/aib 21.jpg",
+    "/image/aib 22.jpg",
+    "/image/aib 23.jpg",
+    "/image/aib 24.jpg",
   ];
 
   const randomSizes = ["h-32", "h-40", "h-48", "h-56", "h-64", "h-72"];
