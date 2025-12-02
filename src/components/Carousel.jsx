@@ -1,12 +1,16 @@
-import React, { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
 
-const Carousel = ({ images, speed = 0.3 }) => {
+const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
   const trackRef = useRef(null);
   const xPos = useRef(0);
-  const dragging = useRef(false);
+  const currentSpeed = useRef(speed);
   const frame = useRef(null);
 
+  const [lightboxImg, setLightboxImg] = useState(null);
+
+  // ================================
+  // AUTO SCROLL LOOP
+  // ================================
   const applyTransform = () => {
     if (trackRef.current) {
       trackRef.current.style.transform = `translateX(${xPos.current}px)`;
@@ -24,64 +28,139 @@ const Carousel = ({ images, speed = 0.3 }) => {
   };
 
   const loop = () => {
-    if (!dragging.current) {
-      xPos.current -= speed; // ← speed langsung dipakai di sini
-      applyTransform();
-      fixLoop();
-    }
+    xPos.current -= currentSpeed.current;
+    applyTransform();
+    fixLoop();
     frame.current = requestAnimationFrame(loop);
   };
 
   useEffect(() => {
-    // Jika speed berubah → hentikan loop lama
-    cancelAnimationFrame(frame.current);
-
-    // Reset posisi supaya tidak glitch
-    xPos.current = 0;
-    applyTransform();
-
-    // Mulai loop baru memakai speed terkini
     loop();
-
     return () => cancelAnimationFrame(frame.current);
-  }, [speed]);
+  }, []);
+
+  // ================================
+  // SLOWDOWN EVENTS
+  // ================================
+  const slow = () => (currentSpeed.current = slowFactor);
+  const fast = () => (currentSpeed.current = speed);
+
+  // ================================
+  // LIGHTBOX CLOSE
+  // ================================
+  const closeLightbox = () => setLightboxImg(null);
 
   return (
-    <div className="overflow-hidden w-full relative py-4">
-      <motion.div
-        ref={trackRef}
-        className="flex gap-4 px-4 select-none"
-        style={{ width: "max-content" }}
-        drag="x"
-        dragElastic={0}
-        dragMomentum={false}
-        onDragStart={() => (dragging.current = true)}
-        onDrag={(e, info) => {
-          xPos.current += info.delta.x;
-          applyTransform();
-          fixLoop();
-        }}
-        onDragEnd={() => {
-          setTimeout(() => (dragging.current = false), 120);
-        }}
+    <>
+      {/* CAROUSEL */}
+      <div
+        className="overflow-hidden w-full relative py-4"
+        onMouseEnter={slow}
+        onMouseLeave={fast}
+        onTouchStart={slow}
+        onTouchEnd={fast}
       >
-        {[...images, ...images].map((img, i) => (
-          <img
-            key={i}
-            src={img}
-            draggable={false}
-            className="
-              rounded-2xl shadow-xl
-              brightness-95 hover:brightness-100 hover:scale-[1.03]
-              transition-all duration-300
-              object-cover
-              w-64 h-40 md:w-80 md:h-52
-              min-w-[16rem] md:min-w-[20rem]
-            "
-          />
-        ))}
-      </motion.div>
-    </div>
+        <div
+          ref={trackRef}
+          className="flex gap-4 px-4 select-none items-center"
+          style={{ width: "max-content", willChange: "transform" }}
+        >
+          {[...images, ...images].map((img, i) => (
+            <div key={i} className="relative group cursor-pointer">
+              {/* IMAGE */}
+              <img
+                src={img}
+                draggable={false}
+                onClick={() => setLightboxImg(img)}
+                className="
+                  rounded-2xl shadow-lg
+                  brightness-95 group-hover:brightness-100
+                  transition-all duration-300
+                  object-cover
+                  w-64 h-40 md:w-80 md:h-52
+                  min-w-[16rem] md:min-w-[20rem]
+                "
+              />
+
+              {/* OVERLAY “LIHAT GAMBAR” */}
+              <div
+                className="
+                  absolute inset-0 
+                  bg-black/40 
+                  opacity-0 group-hover:opacity-100 
+                  transition-all duration-300 
+                  rounded-2xl
+                  pointer-events-none
+                  flex items-center justify-center
+                "
+              >
+                <span className="text-white font-semibold text-sm md:text-base pointer-events-auto">
+                  Lihat Gambar
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* LIGHTBOX */}
+      {lightboxImg && (
+        <div
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 animate-fadeIn"
+          onClick={closeLightbox}
+        >
+          <div className="relative" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={lightboxImg}
+              className="
+                max-w-[90vw] max-h-[80vh] rounded-xl shadow-2xl
+                animate-zoomIn
+              "
+            />
+
+            {/* CLOSE BUTTON */}
+            <button
+              onClick={closeLightbox}
+              className="
+                absolute -top-3 -right-3 bg-white text-black
+                w-8 h-8 rounded-full shadow-md
+                flex items-center justify-center
+                text-lg font-bold
+                hover:bg-red-500 hover:text-white
+                transition
+              "
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ANIMATIONS */}
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes zoomIn {
+          from {
+            opacity: 0;
+            transform: scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        .animate-zoomIn {
+          animation: zoomIn 0.25s ease-out;
+        }
+      `}</style>
+    </>
   );
 };
 
