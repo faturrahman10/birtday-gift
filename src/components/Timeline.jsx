@@ -143,7 +143,7 @@ const Timeline = () => {
       </motion.h3>
 
       {/* CAROUSEL */}
-      <Carousel images={carouselImages} speed={1.0} />
+      <Carousel images={carouselImages} speed={1.2} />
     </section>
   );
 };
