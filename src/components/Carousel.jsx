@@ -1,4 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import GalleryPopup from "./GalleryPopup";
+import GalleryCountdown from "./GalleryCountdown";
 
 const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
   const trackRef = useRef(null);
@@ -8,13 +11,16 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
 
   const [lightboxImg, setLightboxImg] = useState(null);
 
-  // ================================
-  // AUTO SCROLL LOOP
-  // ================================
+  // NEW STATES
+  const [showPopup, setShowPopup] = useState(false);
+  const [startCountdown, setStartCountdown] = useState(false);
+
+  const navigate = useNavigate();
+
+  // AUTO SCROLL
   const applyTransform = () => {
-    if (trackRef.current) {
+    if (trackRef.current)
       trackRef.current.style.transform = `translateX(${xPos.current}px)`;
-    }
   };
 
   const fixLoop = () => {
@@ -39,19 +45,26 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
     return () => cancelAnimationFrame(frame.current);
   }, []);
 
-  // ================================
-  // SLOWDOWN EVENTS
-  // ================================
   const slow = () => (currentSpeed.current = slowFactor);
   const fast = () => (currentSpeed.current = speed);
 
-  // ================================
-  // LIGHTBOX CLOSE
-  // ================================
   const closeLightbox = () => setLightboxImg(null);
 
   return (
     <>
+      {/* POPUP */}
+      <GalleryPopup
+        open={showPopup}
+        onClose={() => setShowPopup(false)}
+        onConfirm={() => {
+          setShowPopup(false);
+          setTimeout(() => setStartCountdown(true), 200);
+        }}
+      />
+
+      {/* COUNTDOWN */}
+      <GalleryCountdown start={startCountdown} />
+
       {/* CAROUSEL */}
       <div
         className="overflow-hidden w-full relative py-4"
@@ -67,7 +80,6 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
         >
           {[...images, ...images].map((img, i) => (
             <div key={i} className="relative group cursor-pointer">
-              {/* IMAGE */}
               <img
                 src={img}
                 draggable={false}
@@ -82,19 +94,15 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
                 "
               />
 
-              {/* OVERLAY “LIHAT GAMBAR” */}
+              {/* Overlay Lihat Gambar */}
               <div
                 className="
-                  absolute inset-0 
-                  bg-black/40 
-                  opacity-0 group-hover:opacity-100 
-                  transition-all duration-300 
-                  rounded-2xl
-                  pointer-events-none
-                  flex items-center justify-center
+                  absolute inset-0 bg-black/40 opacity-0
+                  group-hover:opacity-100 transition duration-300
+                  rounded-2xl flex items-center justify-center
                 "
               >
-                <span className="text-white font-semibold text-sm md:text-base pointer-events-auto">
+                <span className="text-white font-semibold text-sm md:text-base">
                   Lihat Gambar
                 </span>
               </div>
@@ -102,6 +110,17 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
           ))}
         </div>
       </div>
+
+      {/* BUTTON → open popup */}
+      <p
+        onClick={() => setShowPopup(true)}
+        className="
+          text-center text-rose-500 font-medium cursor-pointer mt-6
+          hover:text-rose-600 transition text-lg
+        "
+      >
+        Lihat Foto Lainnya 💗
+      </p>
 
       {/* LIGHTBOX */}
       {lightboxImg && (
@@ -112,22 +131,15 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
           <div className="relative" onClick={(e) => e.stopPropagation()}>
             <img
               src={lightboxImg}
-              className="
-                max-w-[90vw] max-h-[80vh] rounded-xl shadow-2xl
-                animate-zoomIn
-              "
+              className="max-w-[90vw] max-h-[80vh] rounded-xl shadow-2xl animate-zoomIn"
             />
 
-            {/* CLOSE BUTTON */}
             <button
               onClick={closeLightbox}
               className="
                 absolute -top-3 -right-3 bg-white text-black
-                w-8 h-8 rounded-full shadow-md
-                flex items-center justify-center
-                text-lg font-bold
-                hover:bg-red-500 hover:text-white
-                transition
+                w-8 h-8 rounded-full shadow-md flex items-center justify-center
+                text-lg font-bold hover:bg-red-500 hover:text-white transition
               "
             >
               ×
@@ -136,29 +148,19 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
         </div>
       )}
 
-      {/* ANIMATIONS */}
+      {/* Animations */}
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
         }
-        .animate-fadeIn {
-          animation: fadeIn 0.25s ease-out;
-        }
+        .animate-fadeIn { animation: fadeIn 0.25s ease-out; }
 
         @keyframes zoomIn {
-          from {
-            opacity: 0;
-            transform: scale(0.9);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
+          from { opacity: 0; transform: scale(0.9); }
+          to { opacity: 1; transform: scale(1); }
         }
-        .animate-zoomIn {
-          animation: zoomIn 0.25s ease-out;
-        }
+        .animate-zoomIn { animation: zoomIn 0.25s ease-out; }
       `}</style>
     </>
   );
