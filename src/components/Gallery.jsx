@@ -34,12 +34,23 @@ const Gallery = () => {
   const randomSizes = ["h-32", "h-40", "h-48", "h-56", "h-64", "h-72"];
 
   return (
-    <section className="py-20 px-4 md:px-8 bg-gradient-to-b from-rose-50 via-pink-50 to-white dark:from-gray-900 dark:via-gray-950 dark:to-black transition-colors duration-700">
+    <motion.section
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.6 }}
+      className="
+        py-4 px-4 md:px-8 
+        bg-gradient-to-b from-rose-50 via-pink-50 to-white 
+        dark:from-gray-900 dark:via-gray-950 dark:to-black 
+        transition-colors duration-700
+      "
+    >
       <h2 className="text-3xl md:text-4xl font-playfair text-center mb-12 text-gray-800 dark:text-rose-100">
         Gallery💞
       </h2>
 
-      {/* Masonry Gallery */}
+      {/* Masonry */}
       <div className="columns-2 md:columns-4 gap-4 max-w-6xl mx-auto space-y-4">
         {images.map((img, index) => {
           const sizeClass =
@@ -59,7 +70,6 @@ const Gallery = () => {
                 className="w-full h-full object-cover rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:brightness-75"
               />
 
-              {/* Hover overlay */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition duration-300">
                 <span className="opacity-0 group-hover:opacity-100 text-white text-sm font-medium tracking-wide">
                   Klik untuk melihat 💖
@@ -100,7 +110,7 @@ const Gallery = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </motion.section>
   );
 };
 
