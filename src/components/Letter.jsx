@@ -60,7 +60,7 @@ const Letter = () => {
 
                 {/* Body Text */}
                 <p className="font-poppins text-gray-700 leading-relaxed text-[15px] md:text-base">
-                  Sayang…
+                  Allo tantipku imutku🥰,
                   <br />
                   <br />
                   [Tulis surat panjangmu di sini. Bisa berisi cerita kalian,
