@@ -10,9 +10,9 @@ export default function MainLayout() {
 
   const audioRef = useRef(null);
   // === FIX: Scroll to Top on Route Change ===
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [location.pathname]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
   // ← INI FIX UTAMANYA 🔥
 
   // === Apply Dark Mode ===
