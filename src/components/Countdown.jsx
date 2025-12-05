@@ -110,7 +110,7 @@ const Countdown = ({ onFinish }) => {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-pink-100 to-rose-200 dark:from-gray-900 dark:to-gray-800 px-4">
+    <section className="dark relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-pink-100 to-rose-200 dark:from-gray-900 dark:to-gray-800 px-4">
       {/* CONFETTI FALLING — FULLSCREEN */}
       {done && (
         <div className="fixed inset-0 pointer-events-none z-[5]">
