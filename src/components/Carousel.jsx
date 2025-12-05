@@ -97,7 +97,7 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
               {/* Overlay Lihat Gambar */}
               <div
                 className="
-                  absolute inset-0 bg-black/40 opacity-0
+                  pointer-events-none absolute inset-0 bg-black/40 opacity-0
                   group-hover:opacity-100 transition duration-300
                   rounded-2xl flex items-center justify-center
                 "
