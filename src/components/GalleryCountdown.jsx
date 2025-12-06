@@ -7,6 +7,16 @@ export default function GalleryCountdown({ start }) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (start) {
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [start]);
+
+  useEffect(() => {
     if (!start) return;
 
     const timer = setInterval(() => {
