@@ -31,7 +31,13 @@ const Gallery = () => {
     "/image/aib 24.jpg",
   ];
 
-  const randomSizes = ["h-32", "h-40", "h-48", "h-56", "h-64", "h-72"];
+  // 4 tipe rasio — cukup untuk variasi estetik
+  const ratios = [
+    "aspect-[3/4]",
+    "aspect-[4/5]",
+    "aspect-square",
+    "aspect-[9/14]",
+  ];
 
   return (
     <motion.section
@@ -42,7 +48,7 @@ const Gallery = () => {
       className="
         py-4 px-4 md:px-8 
         bg-gradient-to-b from-rose-50 via-pink-50 to-white 
-        dark:from-gray-900 dark:via-gray-950 dark:to-black 
+        dark:from-gray-900 dark:via-gray-950 dark:to-black
         transition-colors duration-700
       "
     >
@@ -50,32 +56,43 @@ const Gallery = () => {
         Gallery💞
       </h2>
 
-      {/* Masonry */}
-      <div className="columns-2 md:columns-4 gap-4 max-w-6xl mx-auto space-y-4">
+      <div className="columns-2 md:columns-4 gap-1 max-w-6xl mx-auto space-y-1">
         {images.map((img, index) => {
-          const sizeClass =
-            randomSizes[Math.floor(Math.random() * randomSizes.length)];
+          const randomRatio = ratios[index % ratios.length]; // urut tapi tetap variasi
 
           return (
-            <motion.div
+            <div
               key={index}
-              whileHover={{ scale: 1.03, rotate: 0.3 }}
-              transition={{ duration: 0.3 }}
-              className={`relative overflow-hidden rounded-2xl cursor-pointer group shadow-md ${sizeClass}`}
               onClick={() => setLightbox(img)}
+              className={`
+                relative
+                w-full overflow-hidden rounded-2xl cursor-pointer group shadow-md
+                break-inside-avoid
+                ${randomRatio}
+              `}
             >
               <img
                 src={img}
-                alt={`Memory ${index}`}
-                className="w-full h-full object-cover rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:brightness-75"
+                loading="lazy"
+                alt={"Memory " + index}
+                className="
+                  w-full h-full object-cover absolute inset-0 rounded-2xl
+                  transition-transform duration-500
+                  group-hover:scale-110 group-hover:brightness-75
+                "
               />
 
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition duration-300">
-                <span className="opacity-0 group-hover:opacity-100 text-white text-sm font-medium tracking-wide">
+              <div
+                className="
+                  absolute inset-0 bg-black/0 group-hover:bg-black/30
+                  flex items-center justify-center transition duration-300
+                "
+              >
+                <span className="opacity-0 group-hover:opacity-100 text-white text-sm tracking-wide">
                   Klik untuk melihat 💖
                 </span>
               </div>
-            </motion.div>
+            </div>
           );
         })}
       </div>
