@@ -35,25 +35,25 @@ export default function GalleryPopup({ open, onClose, onConfirm }) {
             "
           >
             <h2 className="text-xl font-semibold text-rose-600 mb-3">
-              Mau lihat foto spesial lainnya? 💗
+              Kepo ko toh?
             </h2>
             <p className="text-gray-600 mb-6">
-              Isinya lebih private… hanya untuk kamu 🫶
+              Lanjut mi, liat foto super spesial mu
             </p>
 
-            <div className="flex gap-3 justify-center">
+            <div className="flex gap-3 justify-between">
               <button
                 onClick={onClose}
-                className="px-5 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 transition"
+                className="cursor-pointer px-5 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 transition"
               >
-                Batal
+                Nanti deh
               </button>
 
               <button
                 onClick={onConfirm}
-                className="px-5 py-2 rounded-xl bg-rose-500 text-white hover:bg-rose-600 transition shadow-lg"
+                className="cursor-pointer px-5 py-2 rounded-xl bg-rose-500 text-white hover:bg-rose-600 transition shadow-lg"
               >
-                Lanjutkan 💞
+                Aku kepo, lanjut!
               </button>
             </div>
           </motion.div>
