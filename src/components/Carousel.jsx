@@ -115,11 +115,14 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
       <p
         onClick={() => setShowPopup(true)}
         className="
-          text-center text-rose-500 font-medium cursor-pointer mt-6
-          hover:text-rose-600 transition text-lg
+          relative mx-auto w-fit cursor-pointer 
+          text-rose-500 dark:text-rose-300
+          hover:font-semibold text-lg
+          transition duration-300
+          hover:text-rose-600 dark:hover:text-rose-400
         "
       >
-        Lihat Foto Lainnya 💗
+        Foto spesial lainnya..
       </p>
 
       {/* LIGHTBOX */}
