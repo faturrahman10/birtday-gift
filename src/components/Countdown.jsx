@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
-import { playGlobalMusic } from "../layout/MainLayout";
 
 // ==========================
 //  FALLING CONFETTI
@@ -112,7 +111,7 @@ const Countdown = ({ onFinish }) => {
       )}
 
       {!done ? (
-        // =============== COUNTDOWN MODE ===============
+        // COUNTDOWN
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -163,7 +162,7 @@ const Countdown = ({ onFinish }) => {
           </p>
         </motion.div>
       ) : (
-        // =============== SURPRISE MODE ===============
+        // SURPRISE
         <AnimatePresence>
           <motion.div
             key="surprise"
@@ -187,11 +186,10 @@ const Countdown = ({ onFinish }) => {
               <span className="font-semibold">Klik ini👇</span>
             </p>
 
-            {/* === TOMBOL HADIAH YANG MEMUTAR MUSIK === */}
+            {/* === BUTTON YANG MEMUTAR MUSIK SECARA SINKRON === */}
             <motion.button
               onClick={() => {
-                if (playGlobalMusic) playGlobalMusic(); // <– trigger musik global
-                onFinish(); // <– pindah ke /home
+                onFinish();
               }}
               whileHover={{ scale: 1.1 }}
               className="inline-block px-8 py-3 rounded-full bg-rose-500 text-white font-semibold text-lg shadow-lg hover:bg-rose-600 transition"

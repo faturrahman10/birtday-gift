@@ -1,9 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 
-// ==== GLOBAL FUNGSI PLAY ====
-export let playGlobalMusic = null;
-
 export default function MainLayout() {
   const location = useLocation();
 
@@ -24,7 +21,7 @@ export default function MainLayout() {
     darkMode ? html.classList.add("dark") : html.classList.remove("dark");
   }, [darkMode]);
 
-  // === Load Audio (tanpa autoplay) ===
+  // === Load Audio ===
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -39,22 +36,25 @@ export default function MainLayout() {
     return () => audio.removeEventListener("loadeddata", onLoaded);
   }, []);
 
-  // === Fungsi global yang bisa dipanggil dari Countdown ===
+  // === GLOBAL AUDIO ===
   useEffect(() => {
-    playGlobalMusic = async () => {
-      const audio = audioRef.current;
-      if (!audio) return;
+    const audio = audioRef.current;
+    if (!audio) return;
 
+    // Simpan reference global
+    window.__GLOBAL_AUDIO__ = audio;
+
+    window.__PLAY_MUSIC__ = async () => {
       try {
         await audio.play();
         setMusicPlaying(true);
-      } catch (e) {
-        console.warn("Autoplay terblokir:", e);
+      } catch (err) {
+        console.warn("Play blocked:", err);
       }
     };
   }, []);
 
-  // === Toggle manual tombol musik ===
+  // === Toggle manual button ===
   const toggleMusic = async () => {
     if (!audioLoaded) return;
     const audio = audioRef.current;
@@ -63,12 +63,13 @@ export default function MainLayout() {
       audio.pause();
       setMusicPlaying(false);
     } else {
-      await audio.play();
-      setMusicPlaying(true);
+      try {
+        await audio.play();
+        setMusicPlaying(true);
+      } catch {}
     }
   };
 
-  // Pages yang tidak tampil tombol
   const HIDE_BUTTONS = ["/secret"];
   const hideButtons = HIDE_BUTTONS.includes(location.pathname);
 
