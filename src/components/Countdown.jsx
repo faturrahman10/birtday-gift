@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
+import { playGlobalMusic } from "../layout/MainLayout";
 
 // ==========================
-//  FALLING CONFETTI — FIXED (LEMBUT + MERATA + FULLSCREEN)
+//  FALLING CONFETTI
 // ==========================
 const ConfettiPiece = () => {
-  const colors = ["#ff7a7a", "#ffd36e", "#8df7b5", "#8ed6ff", "#d4a8ff"]; // warna lebih halus
+  const colors = ["#ff7a7a", "#ffd36e", "#8df7b5", "#8ed6ff", "#d4a8ff"];
 
   const startX = Math.random() * window.innerWidth;
   const drift = (Math.random() - 0.5) * 120;
-  const size = 3 + Math.random() * 4; // kecil & smooth
+  const size = 3 + Math.random() * 4;
 
   return (
     <motion.div
@@ -41,7 +42,7 @@ const ConfettiPiece = () => {
 };
 
 // ====================================
-//  CONFETTI EXPLOSION (BIG BOOM)
+//  CONFETTI EXPLOSION
 // ====================================
 const fireExplosion = () => {
   confetti({
@@ -63,9 +64,8 @@ const Countdown = ({ onFinish }) => {
   const [done, setDone] = useState(false);
   const [confettiList, setConfettiList] = useState([]);
 
-  // TIMER
   useEffect(() => {
-    const target = new Date("2026-01-07T00:00:00");
+    const target = new Date("2025-01-07T00:00:00");
 
     const interval = setInterval(() => {
       const now = new Date();
@@ -74,7 +74,7 @@ const Countdown = ({ onFinish }) => {
       if (diff <= 0) {
         setDone(true);
         clearInterval(interval);
-        fireExplosion(); // ledakan pertama
+        fireExplosion();
       } else {
         setTimeLeft({
           days: Math.floor(diff / (1000 * 60 * 60 * 24)),
@@ -88,30 +88,21 @@ const Countdown = ({ onFinish }) => {
     return () => clearInterval(interval);
   }, []);
 
-  // Falling confetti — unlimited tetapi smooth
   useEffect(() => {
     if (!done) return;
 
     const interval = setInterval(() => {
       setConfettiList((prev) => {
         const updated = [...prev, { id: Date.now() + Math.random() }];
-        return updated.slice(-220); // batasi agar tetap ringan
+        return updated.slice(-220);
       });
     }, 120);
 
     return () => clearInterval(interval);
   }, [done]);
 
-  const timeKeys = [
-    { key: "days", label: "Hari" },
-    { key: "hours", label: "Jam" },
-    { key: "minutes", label: "Menit" },
-    { key: "seconds", label: "Detik" },
-  ];
-
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-pink-100 to-rose-200 dark:from-gray-900 dark:to-gray-800 px-4">
-      {/* CONFETTI FALLING — FULLSCREEN */}
       {done && (
         <div className="fixed inset-0 pointer-events-none z-[5]">
           {confettiList.map((c) => (
@@ -120,8 +111,8 @@ const Countdown = ({ onFinish }) => {
         </div>
       )}
 
-      {/* COUNTDOWN MODE */}
       {!done ? (
+        // =============== COUNTDOWN MODE ===============
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -133,7 +124,7 @@ const Countdown = ({ onFinish }) => {
           </h2>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
-            {timeKeys.map(({ key, label }) => (
+            {["days", "hours", "minutes", "seconds"].map((key) => (
               <motion.div
                 key={key}
                 whileHover={{ scale: 1.05 }}
@@ -148,7 +139,15 @@ const Countdown = ({ onFinish }) => {
                 >
                   {timeLeft[key] ?? "0"}
                 </motion.p>
-                <p className="text-gray-600 dark:text-gray-300 mt-2">{label}</p>
+                <p className="text-gray-600 dark:text-gray-300 mt-2">
+                  {key === "days"
+                    ? "Hari"
+                    : key === "hours"
+                    ? "Jam"
+                    : key === "minutes"
+                    ? "Menit"
+                    : "Detik"}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -164,7 +163,7 @@ const Countdown = ({ onFinish }) => {
           </p>
         </motion.div>
       ) : (
-        // SURPRISE MODE
+        // =============== SURPRISE MODE ===============
         <AnimatePresence>
           <motion.div
             key="surprise"
@@ -188,8 +187,12 @@ const Countdown = ({ onFinish }) => {
               <span className="font-semibold">Klik ini👇</span>
             </p>
 
+            {/* === TOMBOL HADIAH YANG MEMUTAR MUSIK === */}
             <motion.button
-              onClick={onFinish}
+              onClick={() => {
+                if (playGlobalMusic) playGlobalMusic(); // <– trigger musik global
+                onFinish(); // <– pindah ke /home
+              }}
               whileHover={{ scale: 1.1 }}
               className="inline-block px-8 py-3 rounded-full bg-rose-500 text-white font-semibold text-lg shadow-lg hover:bg-rose-600 transition"
             >
