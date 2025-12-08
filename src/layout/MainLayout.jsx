@@ -1,6 +1,9 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 
+// ==== GLOBAL FUNGSI PLAY ====
+export let playGlobalMusic = null;
+
 export default function MainLayout() {
   const location = useLocation();
 
@@ -9,30 +12,25 @@ export default function MainLayout() {
   const [audioLoaded, setAudioLoaded] = useState(false);
 
   const audioRef = useRef(null);
-  // === FIX: Scroll to Top on Route Change ===
+
+  // Scroll ke atas setiap ganti halaman
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
-  // ← INI FIX UTAMANYA 🔥
 
-  // === Apply Dark Mode ===
+  // === Dark Mode ===
   useEffect(() => {
     const html = document.documentElement;
     darkMode ? html.classList.add("dark") : html.classList.remove("dark");
   }, [darkMode]);
 
-  // === Load & Autoplay Music ===
+  // === Load Audio (tanpa autoplay) ===
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
     const onLoaded = () => {
       setAudioLoaded(true);
-
-      audio
-        .play()
-        .then(() => setMusicPlaying(true))
-        .catch(() => {});
     };
 
     audio.addEventListener("loadeddata", onLoaded);
@@ -41,6 +39,22 @@ export default function MainLayout() {
     return () => audio.removeEventListener("loadeddata", onLoaded);
   }, []);
 
+  // === Fungsi global yang bisa dipanggil dari Countdown ===
+  useEffect(() => {
+    playGlobalMusic = async () => {
+      const audio = audioRef.current;
+      if (!audio) return;
+
+      try {
+        await audio.play();
+        setMusicPlaying(true);
+      } catch (e) {
+        console.warn("Autoplay terblokir:", e);
+      }
+    };
+  }, []);
+
+  // === Toggle manual tombol musik ===
   const toggleMusic = async () => {
     if (!audioLoaded) return;
     const audio = audioRef.current;
@@ -54,7 +68,7 @@ export default function MainLayout() {
     }
   };
 
-  // Routes yang tidak ingin menampilkan tombol
+  // Pages yang tidak tampil tombol
   const HIDE_BUTTONS = ["/secret"];
   const hideButtons = HIDE_BUTTONS.includes(location.pathname);
 
@@ -68,7 +82,7 @@ export default function MainLayout() {
         />
       </audio>
 
-      {/* GLOBAL BUTTONS */}
+      {/* BUTTONS */}
       {!hideButtons && (
         <>
           <button
