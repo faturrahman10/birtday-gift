@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import CardInfoButton from "../components/CardInfoButton"; // ⬅ TAMBAHKAN INI
 
 export default function MainLayout() {
   const location = useLocation();
@@ -7,7 +8,6 @@ export default function MainLayout() {
   const [darkMode, setDarkMode] = useState(true);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const [audioLoaded, setAudioLoaded] = useState(false);
-
   const audioRef = useRef(null);
 
   // Scroll ke atas setiap ganti halaman
@@ -15,33 +15,29 @@ export default function MainLayout() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  // === Dark Mode ===
+  // Dark Mode
   useEffect(() => {
     const html = document.documentElement;
     darkMode ? html.classList.add("dark") : html.classList.remove("dark");
   }, [darkMode]);
 
-  // === Load Audio ===
+  // Load audio
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const onLoaded = () => {
-      setAudioLoaded(true);
-    };
-
+    const onLoaded = () => setAudioLoaded(true);
     audio.addEventListener("loadeddata", onLoaded);
     audio.load();
 
     return () => audio.removeEventListener("loadeddata", onLoaded);
   }, []);
 
-  // === GLOBAL AUDIO ===
+  // Global Audio
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    // Simpan reference global
     window.__GLOBAL_AUDIO__ = audio;
 
     window.__PLAY_MUSIC__ = async () => {
@@ -54,11 +50,11 @@ export default function MainLayout() {
     };
   }, []);
 
-  // === Toggle manual button ===
+  // Toggle Music
   const toggleMusic = async () => {
     if (!audioLoaded) return;
-    const audio = audioRef.current;
 
+    const audio = audioRef.current;
     if (musicPlaying) {
       audio.pause();
       setMusicPlaying(false);
@@ -70,6 +66,7 @@ export default function MainLayout() {
     }
   };
 
+  // Halaman tanpa tombol
   const HIDE_BUTTONS = ["/secret"];
   const hideButtons = HIDE_BUTTONS.includes(location.pathname);
 
@@ -82,6 +79,9 @@ export default function MainLayout() {
           type="audio/mpeg"
         />
       </audio>
+
+      {/* INFO CARD */}
+      {!hideButtons && <CardInfoButton />}
 
       {/* BUTTONS */}
       {!hideButtons && (
@@ -102,7 +102,6 @@ export default function MainLayout() {
         </>
       )}
 
-      {/* CONTENT */}
       <Outlet />
     </>
   );
