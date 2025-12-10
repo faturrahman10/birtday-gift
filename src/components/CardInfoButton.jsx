@@ -26,9 +26,10 @@ export default function CardInfoButton() {
           LIGHTBOX BACKDROP
       ======================== */}
       <div
-        className="
-          fixed inset-0 bg-black/60 backdrop-blur-sm z-40
-        "
+        className={`
+          fixed inset-0 bg-black/60 backdrop-blur-sm
+          ${step === 1 ? "z-50" : "z-51"}
+        `}
       ></div>
 
       {/* =======================
@@ -59,11 +60,11 @@ export default function CardInfoButton() {
       ======================== */}
       <div
         className={`
-          fixed top-15
-          ${step === 1 ? "left-15" : "right-15"}
+          fixed top-20
+          ${step === 1 ? "left-3 z-51" : "right-3 z-50"}
           bg-white dark:bg-gray-800
           border border-gray-200 dark:border-gray-700
-          shadow-2xl rounded-xl p-5 w-72 z-50
+          shadow-2xl rounded-xl p-3 w-72
           animate-fadeIn
         `}
       >
