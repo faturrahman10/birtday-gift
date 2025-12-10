@@ -86,16 +86,32 @@ export default function MainLayout() {
       {/* BUTTONS */}
       {!hideButtons && (
         <>
+          {/* MUSIC BUTTON */}
           <button
             onClick={toggleMusic}
-            className="fixed top-4 right-4 z-50 bg-rose-300 p-2 rounded-full shadow-lg"
+            className="
+        fixed top-4 right-4 z-50
+        w-10 h-10
+        bg-rose-300 dark:bg-rose-400
+        rounded-full shadow-lg
+        flex items-center justify-center
+        text-xl
+      "
           >
             {!audioLoaded ? "⏳" : musicPlaying ? "🎵" : "🔇"}
           </button>
 
+          {/* DARK MODE BUTTON */}
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="fixed top-4 left-4 z-50 bg-gray-200 dark:bg-gray-700 p-2 rounded-full shadow-lg"
+            className="
+        fixed top-4 left-4 z-50
+        w-10 h-10
+        bg-gray-200 dark:bg-gray-700
+        rounded-full shadow-lg
+        flex items-center justify-center
+        text-xl
+      "
           >
             {darkMode ? "🌙" : "🌞"}
           </button>
