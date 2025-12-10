@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Letter = () => {
   const [open, setOpen] = useState(false);
+
+  // Lock scroll background ketika modal terbuka
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "auto";
+    return () => (document.body.style.overflow = "auto");
+  }, [open]);
 
   return (
     <section className="py-24 px-4 md:px-8 text-center">
@@ -14,63 +20,98 @@ const Letter = () => {
         className="inline-block cursor-pointer"
       >
         <img
-          src="/images/envelope.png"
+          src="/icon/love-letter.png"
           alt="Envelope"
           className="w-40 md:w-48 mx-auto drop-shadow-lg"
         />
-        <p className="mt-4 font-poppins text-gray-700">
-          Klik amplop untuk membuka surat 💌
+        <p className="font-playfair text-2xl text-rose-300 mb-3 text-center">
+          Surat
         </p>
       </motion.div>
 
-      {/* POP-UP MODAL */}
+      {/* MODAL */}
       <AnimatePresence>
         {open && (
           <>
-            {/* Background overlay */}
+            {/* Overlay */}
             <motion.div
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-52"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             />
 
-            {/* Modal Letter */}
+            {/* Scrollable wrapper */}
             <motion.div
-              className="fixed inset-0 z-50 flex items-center justify-center px-4"
-              initial={{ opacity: 0, scale: 0.8, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-53 overflow-y-auto overflow-x-hidden flex items-center justify-center px-4 py-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
             >
-              <div className="relative bg-rose-50 max-w-lg w-full rounded-2xl shadow-2xl p-8 border border-rose-200">
-                {/* Tombol Close */}
-                <motion.button
+              <div className="relative">
+                {/* CLOSE BUTTON - sekarang tidak terpotong */}
+                <button
                   onClick={() => setOpen(false)}
-                  whileHover={{ scale: 1.2 }}
-                  className="absolute -top-5 -right-5 bg-white text-rose-500 text-xl w-10 h-10 rounded-full flex items-center justify-center shadow-md"
+                  className="
+                    absolute -top-3 -right-3 bg-white text-rose-500 text-xl 
+                    w-10 h-10 rounded-full flex items-center justify-center shadow-md
+                    z-50 font-semibold cursor-pointer
+                  "
                 >
-                  ❤️
-                </motion.button>
+                  X
+                </button>
 
-                {/* Header */}
-                <h3 className="font-playfair text-2xl text-rose-600 mb-4">
-                  Surat Untukmu 💌
-                </h3>
+                {/* Modal Card */}
+                <motion.div
+                  initial={{ scale: 0.9, y: 30 }}
+                  animate={{ scale: 1, y: 0 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="
+                    bg-rose-50 max-w-lg w-full rounded-2xl shadow-2xl border border-rose-200
+                    overflow-hidden
+                  "
+                >
+                  {/* Header */}
+                  <div className="p-4 pb-4">
+                    <h3 className="font-playfair text-xl text-rose-400">
+                      Suratnya Patur 💌
+                    </h3>
+                  </div>
 
-                {/* Body Text */}
-                <p className="font-poppins text-gray-700 leading-relaxed text-[15px] md:text-base">
-                  Allo tantipku imutku🥰,
-                  <br />
-                  <br />
-                  [Tulis surat panjangmu di sini. Bisa berisi cerita kalian,
-                  perasaanmu yang paling dalam, ungkapan terima kasih, atau
-                  harapan kalian ke depan.]
-                  <br />
-                  <br />
-                  Kamu selalu ada di hatiku, setiap hari, setiap waktu. Terima
-                  kasih sudah menjadi bagian terindah dalam hidupku. ❤️
-                </p>
+                  {/* BODY */}
+                  <div className="px-6 pb-8 overflow-y-auto max-h-[70vh]">
+                    <p className="font-poppins text-gray-700 leading-relaxed text-sm text-justify">
+                      Allo tantipku imutku🥰,
+                      <br />
+                      <br />
+                      Apara ditulis nte surat le😂, berdoa dulu deh, semoga
+                      sehat dan kuat terus jiwa raganya "anjaay jiwa raga",
+                      ndapapa sakit-sakit dikit sekali-kali, panas-panas dikit,
+                      bolokan dikit, atau batok-batok dikit, yang penting
+                      sembuhnya cepat terus sehat-sehat lagi, kalo kurang imun,
+                      bilang saja, nanti{" "}
+                      <span className="font-semibold">kupeluk</span>😁
+                      <br />
+                      <br />
+                      Pokoknya sehat selalu, bahagia selalu, karirnya lancar,{" "}
+                      <span className="font-semibold">
+                        sama jangan sering marah-marah😂😂
+                      </span>
+                      <br />
+                      <br />
+                      Aeh, aku tak tau lah bikin kata-kata romantis, agak geli
+                      na haha😂, intinya sayang kamu dindaa, lopyuu dindaa❤️😘,
+                      semoga selamanya ki, maap masi belum jadi laki-laki yang
+                      mapan, tapi pasti usaha terusna wujudkan'i semuanya.
+                      semoga nda bosan sama cowok satu ini hehee😁
+                      <br />
+                      <br />
+                      Nda bisa bikir surat panjang-panjang karna kepenuhan nanti
+                      layarnya haha, segitu dulu yaa beccu imutkuu😘😘
+                    </p>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           </>
