@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import CardInfoButton from "../components/CardInfoButton"; // ⬅ TAMBAHKAN INI
+import CardInfoButton from "../components/CardInfoButton";
 
 export default function MainLayout() {
   const location = useLocation();
@@ -8,52 +8,49 @@ export default function MainLayout() {
   const [darkMode, setDarkMode] = useState(true);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const [audioLoaded, setAudioLoaded] = useState(false);
+  const [onboardingStep, setOnboardingStep] = useState(0);
+
   const audioRef = useRef(null);
 
-  // Scroll ke atas setiap ganti halaman
+  // scroll to top on route change (kamu pakai ini sebelumnya)
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  // Dark Mode
+  // dark mode apply
   useEffect(() => {
     const html = document.documentElement;
     darkMode ? html.classList.add("dark") : html.classList.remove("dark");
   }, [darkMode]);
 
-  // Load audio
+  // load audio
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-
     const onLoaded = () => setAudioLoaded(true);
     audio.addEventListener("loadeddata", onLoaded);
     audio.load();
-
     return () => audio.removeEventListener("loadeddata", onLoaded);
   }, []);
 
-  // Global Audio
+  // expose globals if perlu (tetap)
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-
     window.__GLOBAL_AUDIO__ = audio;
-
     window.__PLAY_MUSIC__ = async () => {
       try {
         await audio.play();
         setMusicPlaying(true);
-      } catch (err) {
-        console.warn("Play blocked:", err);
+      } catch (e) {
+        console.warn("Play blocked:", e);
       }
     };
   }, []);
 
-  // Toggle Music
+  // toggle music button
   const toggleMusic = async () => {
     if (!audioLoaded) return;
-
     const audio = audioRef.current;
     if (musicPlaying) {
       audio.pause();
@@ -66,7 +63,6 @@ export default function MainLayout() {
     }
   };
 
-  // Halaman tanpa tombol
   const HIDE_BUTTONS = ["/secret"];
   const hideButtons = HIDE_BUTTONS.includes(location.pathname);
 
@@ -80,41 +76,56 @@ export default function MainLayout() {
         />
       </audio>
 
-      {/* INFO CARD */}
-      {!hideButtons && <CardInfoButton />}
+      {/* INFO ONBOARDING */}
+      {!hideButtons && (
+        <CardInfoButton
+          setStepFromParent={(s) => {
+            // terima update dari child
+            setOnboardingStep(s);
+          }}
+        />
+      )}
 
       {/* BUTTONS */}
       {!hideButtons && (
         <>
-          {/* MUSIC BUTTON */}
-          <button
-            onClick={toggleMusic}
-            className="
-        fixed top-4 right-4 z-50
-        w-10 h-10
-        bg-rose-300 dark:bg-rose-400
-        rounded-full shadow-lg
-        flex items-center justify-center
-        text-xl
-      "
-          >
-            {!audioLoaded ? "⏳" : musicPlaying ? "🎵" : "🔇"}
-          </button>
+          {/* MUSIC BUTTON — z-50 (di atas overlay + card + ring) */}
+          {(onboardingStep === 0 ||
+            onboardingStep === 3 ||
+            onboardingStep === 2) && (
+            <button
+              onClick={toggleMusic}
+              className="
+                fixed top-4 right-4 z-50
+                w-10 h-10
+                bg-rose-300 dark:bg-rose-400
+                rounded-full shadow-lg
+                flex items-center justify-center
+                text-xl
+              "
+            >
+              {!audioLoaded ? "⏳" : musicPlaying ? "🎵" : "🔇"}
+            </button>
+          )}
 
-          {/* DARK MODE BUTTON */}
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="
-        fixed top-4 left-4 z-50
-        w-10 h-10
-        bg-gray-200 dark:bg-gray-700
-        rounded-full shadow-lg
-        flex items-center justify-center
-        text-xl
-      "
-          >
-            {darkMode ? "🌙" : "🌞"}
-          </button>
+          {/* DARK MODE BUTTON — z-50 */}
+          {(onboardingStep === 0 ||
+            onboardingStep === 3 ||
+            onboardingStep === 1) && (
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="
+                fixed top-4 left-4 z-50
+                w-10 h-10
+                bg-gray-200 dark:bg-gray-700
+                rounded-full shadow-lg
+                flex items-center justify-center
+                text-xl
+              "
+            >
+              {darkMode ? "🌙" : "🌞"}
+            </button>
+          )}
         </>
       )}
 
