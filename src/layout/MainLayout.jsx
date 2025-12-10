@@ -98,7 +98,7 @@ export default function MainLayout() {
               className="
                 fixed top-4 right-4 z-50
                 w-10 h-10
-                bg-rose-300 dark:bg-rose-400
+                bg-rose-400 dark:bg-rose-300
                 rounded-full shadow-lg
                 flex items-center justify-center
                 text-xl
