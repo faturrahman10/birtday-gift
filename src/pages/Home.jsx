@@ -6,9 +6,7 @@ import Hero from "../components/Hero";
 import Timeline from "../components/Timeline";
 import Letter from "../components/Letter";
 import Quiz from "../components/Quiz";
-import TimeCapsule from "../components/TimeCapsule";
 import Footer from "../components/Footer";
-import SecretSection from "../components/SecretSection";
 
 function Home() {
   useEffect(() => {
@@ -23,7 +21,6 @@ function Home() {
         dark:from-gray-900 dark:via-gray-950 dark:to-black
       "
     >
-      <SecretSection />
       <Hero />
       <Timeline />
       <Letter />
