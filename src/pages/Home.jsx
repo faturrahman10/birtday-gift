@@ -5,7 +5,6 @@ import "aos/dist/aos.css";
 import Hero from "../components/Hero";
 import Timeline from "../components/Timeline";
 import Letter from "../components/Letter";
-import Wishlist from "../components/Wishlist";
 import Quiz from "../components/Quiz";
 import TimeCapsule from "../components/TimeCapsule";
 import Footer from "../components/Footer";
@@ -28,7 +27,6 @@ function Home() {
       <Hero />
       <Timeline />
       <Letter />
-      <Wishlist />
       <Quiz />
       <TimeCapsule />
       <Footer />
