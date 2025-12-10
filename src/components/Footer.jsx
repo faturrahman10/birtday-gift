@@ -1,69 +1,75 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-const Footer = ({ setSecretUnlocked }) => {
-  const [clickCount, setClickCount] = useState(0);
-  const [timer, setTimer] = useState(null);
-
-  const handleHeartClick = () => {
-    setClickCount((prev) => prev + 1);
-
-    // Reset timer jika ada
-    if (timer) clearTimeout(timer);
-
-    // Set timer 2 detik untuk reset klik
-    const newTimer = setTimeout(() => {
-      setClickCount(0);
-    }, 2000);
-    setTimer(newTimer);
-
-    // Jika klik 3 kali, buka secret section
-    if (clickCount + 1 >= 3) {
-      setSecretUnlocked(true);
-      setClickCount(0); // Reset setelah unlock
-      clearTimeout(newTimer);
-    }
-  };
-
-  useEffect(() => {
-    return () => {
-      if (timer) clearTimeout(timer); // Cleanup
-    };
-  }, [timer]);
+export default function Footer() {
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="py-10 px-4 md:px-8 text-center bg-gray-100">
-      <p className="text-gray-600 mb-4">
-        Created with ❤️ by [Namamu] for [Nama Pacar].
-      </p>
-      {/* Ikon Hati untuk Trigger Secret */}
-      <div className="flex justify-center items-center space-x-4">
-        <span
-          onClick={handleHeartClick}
-          className="text-2xl cursor-pointer hover:scale-110 transition-transform"
-          title="Klik 3 kali untuk rahasia spesial"
-        >
-          ❤️
-        </span>
-        {/* Social Media Icons (opsional) */}
-        <a
-          href="[link Instagram Anda]"
-          className="text-gray-600 hover:text-rose-500 transition"
-        >
-          📷 Instagram
-        </a>
-        <a
-          href="[link WhatsApp Anda]"
-          className="text-gray-600 hover:text-rose-500 transition"
-        >
-          💬 WhatsApp
-        </a>
+    <footer className="pt-10 pb-6 px-4 md:px-8 bg-gradient-to-t from-transparent to-white dark:to-black dark:from-transparent">
+      <div className="max-w-6xl mx-auto">
+        {/* Content Container */}
+        <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
+          {/* Left - Message */}
+          <div className="flex-1 text-center md:text-left">
+            <h4 className="text-lg md:text-xl font-semibold text-rose-600 dark:text-rose-400">
+              Created with ❤️ by Fatur
+            </h4>
+            <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+              Made specially for{" "}
+              <span className="font-medium text-rose-600 dark:text-rose-400">
+                Dinda
+              </span>
+              .
+            </p>
+          </div>
+
+          {/* Middle - Social Links */}
+          <div className="flex flex-col items-center">
+            <div className="flex items-center gap-4 text-sm">
+              <a
+                href="https://instagram.com/10fatur_rahman"
+                target="_blank"
+                rel="noreferrer"
+                className="text-gray-600 dark:text-gray-300 hover:text-rose-500 dark:hover:text-rose-400 transition"
+              >
+                📷 Instagram
+              </a>
+
+              <a
+                href="https://wa.me/6282196899694"
+                target="_blank"
+                rel="noreferrer"
+                className="text-gray-600 dark:text-gray-300 hover:text-rose-500 dark:hover:text-rose-400 transition"
+              >
+                💬 WhatsApp
+              </a>
+
+              <a
+                href="mailto:aliahnradinda@gmail.com"
+                className="text-gray-600 dark:text-gray-300 hover:text-rose-500 dark:hover:text-rose-400 transition"
+              >
+                ✉️ Email
+              </a>
+            </div>
+          </div>
+
+          {/* Right - Copyright */}
+          <div className="flex-1 text-center md:text-right">
+            <p className="text-sm text-gray-600 dark:text-gray-300">
+              © {year} Fatur Rahman. All rights reserved.
+            </p>
+            <p className="mt-1 text-xs text-gray-400">
+              kadokecil.vercel.app • Built with React & Tailwind
+            </p>
+          </div>
+        </div>
+
+        {/* Bottom small note */}
+        <div className="mt-6 border-t border-gray-100 dark:border-gray-800 pt-4">
+          <p className="text-center text-xs text-gray-500 dark:text-gray-400">
+            Website ini dibuat khusus untuk seseorang yang sangat berarti 💞
+          </p>
+        </div>
       </div>
-      <p className="text-sm text-gray-500 mt-4">
-        © 2024. Semua hak dilindungi. Website ini dibuat khusus untuk merayakan
-        cinta kita.
-      </p>
     </footer>
   );
-};
-
-export default Footer;
+}
