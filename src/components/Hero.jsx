@@ -154,7 +154,7 @@ const Hero = () => {
             bg-gradient-to-r from-pink-500 to-rose-400 text-white
             px-12 py-4 rounded-full font-semibold shadow-lg
             hover:opacity-90 transition duration-300
-            dark:from-pink-400 dark:to-rose-300
+            dark:from-pink-400 dark:to-rose-300 cursor-pointer
           "
           onClick={() =>
             window.scrollTo({ top: window.innerHeight, behavior: "smooth" })
