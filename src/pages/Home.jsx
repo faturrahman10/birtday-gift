@@ -28,7 +28,6 @@ function Home() {
       <Timeline />
       <Letter />
       <Quiz />
-      <TimeCapsule />
       <Footer />
     </div>
   );
