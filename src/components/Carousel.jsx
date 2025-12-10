@@ -120,6 +120,7 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
           hover:font-semibold text-lg
           transition duration-300
           hover:text-rose-600 dark:hover:text-rose-400
+          animate-pulse
         "
       >
         Foto spesial lainnya..
