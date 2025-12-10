@@ -101,7 +101,7 @@ export default function MainLayout() {
                 bg-rose-400 dark:bg-rose-300
                 rounded-full shadow-lg
                 flex items-center justify-center
-                text-xl
+                text-xl cursor-pointer
               "
             >
               {!audioLoaded ? "⏳" : musicPlaying ? "🎵" : "🔇"}
@@ -120,7 +120,7 @@ export default function MainLayout() {
                 bg-gray-200 dark:bg-gray-700
                 rounded-full shadow-lg
                 flex items-center justify-center
-                text-xl
+                text-xl cursor-pointer
               "
             >
               {darkMode ? "🌙" : "🌞"}
