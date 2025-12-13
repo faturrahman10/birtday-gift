@@ -29,25 +29,40 @@ export default function Footer() {
                 href="https://instagram.com/10fatur_rahman"
                 target="_blank"
                 rel="noreferrer"
-                className="text-gray-600 dark:text-gray-300 hover:text-rose-500 dark:hover:text-rose-400 transition"
+                className="
+                hover:text-gray-600 hover:dark:text-gray-300 
+                transition 
+                duration-300
+                bg-gradient-to-r 
+                from-[#F58529] 
+                via-[#DD2A7B] 
+                to-[#515BD4]
+                text-transparent
+                bg-clip-text
+                font-semibold
+              "
               >
-                📷 Instagram
+                Instagram
               </a>
 
               <a
-                href="https://wa.me/6282196899694"
+                href="https://wa.me/6285340305544"
                 target="_blank"
                 rel="noreferrer"
-                className="text-gray-600 dark:text-gray-300 hover:text-rose-500 dark:hover:text-rose-400 transition"
+                className="
+                  hover:text-gray-600 hover:dark:text-gray-300
+                  transition 
+                  duration-300
+                  bg-gradient-to-r
+                  from-[#25D366] 
+                  via-[#128C7E]
+                  to-white
+                  text-transparent
+                  bg-clip-text
+                  font-semibold
+                "
               >
-                💬 WhatsApp
-              </a>
-
-              <a
-                href="mailto:aliahnradinda@gmail.com"
-                className="text-gray-600 dark:text-gray-300 hover:text-rose-500 dark:hover:text-rose-400 transition"
-              >
-                ✉️ Email
+                WhatsApp
               </a>
             </div>
           </div>
