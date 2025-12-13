@@ -7,6 +7,7 @@ import Timeline from "../components/Timeline";
 import Letter from "../components/Letter";
 import Quiz from "../components/Quiz";
 import Footer from "../components/Footer";
+import FaturPov from "../components/FaturPov";
 
 function Home() {
   useEffect(() => {
@@ -25,6 +26,7 @@ function Home() {
       <Timeline />
       <Letter />
       <Quiz />
+      <FaturPov />
       <Footer />
     </div>
   );
