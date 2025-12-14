@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 
 export default function CardInfoButton({ setStepFromParent = () => {} }) {
-  const [step, setStep] = useState(0); // 0 = belum, 1 = dark, 2 = music, 3 = done
+  const [step, setStep] = useState(0);
 
   useEffect(() => {
     const seen = localStorage.getItem("onboarding_v1_done");
     if (!seen) {
-      // mulai tutorial
       setStep(1);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Kirim step ke parent (jika parent mengirim handler)
   useEffect(() => {
     try {
       setStepFromParent && setStepFromParent(step);
@@ -33,7 +30,6 @@ export default function CardInfoButton({ setStepFromParent = () => {} }) {
 
   return (
     <>
-      {/* OVERLAY (di bawah tombol z-50) */}
       <div
         className={`
           fixed inset-0 bg-black/60 backdrop-blur-sm
@@ -41,7 +37,6 @@ export default function CardInfoButton({ setStepFromParent = () => {} }) {
         `}
       />
 
-      {/* SPOTLIGHT RING (di atas overlay tetapi BAWAH tombol) */}
       {step === 1 && (
         <div
           className="
@@ -62,7 +57,6 @@ export default function CardInfoButton({ setStepFromParent = () => {} }) {
         />
       )}
 
-      {/* CARD (di atas overlay, TETAPI di bawah tombol) */}
       <div
         className={`
           fixed top-20

@@ -9,10 +9,10 @@ export default function AppWrapper() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Countdown TIDAK memakai MainLayout */}
+        {/* TIDAK PAKAI MainLayout */}
         <Route path="/" element={<CountdownPage />} />
 
-        {/* Semua halaman utama PAKAI MAINLAYOUT */}
+        {/* PAKAI MAINLAYOUT */}
         <Route element={<MainLayout />}>
           <Route path="/home" element={<Home />} />
           <Route path="/gallery" element={<GalleryPage />} />

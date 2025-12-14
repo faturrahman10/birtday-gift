@@ -12,7 +12,7 @@ export default function MainLayout() {
 
   const audioRef = useRef(null);
 
-  // scroll to top on route change (kamu pakai ini sebelumnya)
+  // scroll to top on route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
@@ -33,7 +33,6 @@ export default function MainLayout() {
     return () => audio.removeEventListener("loadeddata", onLoaded);
   }, []);
 
-  // expose globals if perlu (tetap)
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -80,7 +79,6 @@ export default function MainLayout() {
       {!hideButtons && (
         <CardInfoButton
           setStepFromParent={(s) => {
-            // terima update dari child
             setOnboardingStep(s);
           }}
         />
@@ -89,7 +87,7 @@ export default function MainLayout() {
       {/* BUTTONS */}
       {!hideButtons && (
         <>
-          {/* MUSIC BUTTON — z-50 (di atas overlay + card + ring) */}
+          {/* MUSIC BUTTON */}
           {(onboardingStep === 0 ||
             onboardingStep === 3 ||
             onboardingStep === 2) && (
@@ -108,7 +106,7 @@ export default function MainLayout() {
             </button>
           )}
 
-          {/* DARK MODE BUTTON — z-50 */}
+          {/* DARK MODE BUTTON */}
           {(onboardingStep === 0 ||
             onboardingStep === 3 ||
             onboardingStep === 1) && (

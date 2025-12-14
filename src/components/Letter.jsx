@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const Letter = () => {
   const [open, setOpen] = useState(false);
 
-  // Lock scroll background ketika modal terbuka
+  // Lock scroll background
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
     return () => (document.body.style.overflow = "auto");
@@ -12,7 +12,6 @@ const Letter = () => {
 
   return (
     <section className="py-24 px-4 md:px-8 text-center">
-      {/* Envelope */}
       <motion.div
         onClick={() => setOpen(true)}
         whileHover={{ scale: 1.08, rotate: -2 }}
@@ -49,7 +48,7 @@ const Letter = () => {
               exit={{ opacity: 0 }}
             >
               <div className="relative">
-                {/* CLOSE BUTTON - sekarang tidak terpotong */}
+                {/* CLOSE BUTTON */}
                 <button
                   onClick={() => setOpen(false)}
                   className="

@@ -11,13 +11,11 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
 
   const [lightboxImg, setLightboxImg] = useState(null);
 
-  // NEW STATES
   const [showPopup, setShowPopup] = useState(false);
   const [startCountdown, setStartCountdown] = useState(false);
 
   const navigate = useNavigate();
 
-  // AUTO SCROLL
   const applyTransform = () => {
     if (trackRef.current)
       trackRef.current.style.transform = `translateX(${xPos.current}px)`;
@@ -52,7 +50,6 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
 
   return (
     <>
-      {/* POPUP */}
       <GalleryPopup
         open={showPopup}
         onClose={() => setShowPopup(false)}
@@ -62,10 +59,8 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
         }}
       />
 
-      {/* COUNTDOWN */}
       <GalleryCountdown start={startCountdown} />
 
-      {/* CAROUSEL */}
       <div
         className="overflow-hidden w-full relative py-4"
         onMouseEnter={slow}
@@ -94,7 +89,6 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
                 "
               />
 
-              {/* Overlay Lihat Gambar */}
               <div
                 className="
                   pointer-events-none absolute inset-0 bg-black/40 opacity-0
@@ -111,7 +105,6 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
         </div>
       </div>
 
-      {/* BUTTON → open popup */}
       <p
         onClick={() => setShowPopup(true)}
         className="
@@ -126,7 +119,6 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
         Foto spesial lainnya..
       </p>
 
-      {/* LIGHTBOX */}
       {lightboxImg && (
         <div
           className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 animate-fadeIn"
@@ -152,7 +144,6 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
         </div>
       )}
 
-      {/* Animations */}
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; }

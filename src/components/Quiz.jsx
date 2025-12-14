@@ -52,7 +52,7 @@ const Quiz = () => {
     setShowPopup(false);
     setSelectedAnswer("");
 
-    // Jika benar, lanjut ke soal berikutnya atau selesai
+    // Jika benar
     if (isCorrect) {
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(currentQuestion + 1);
@@ -60,7 +60,7 @@ const Quiz = () => {
         setIsFinished(true);
       }
     }
-    // Jika salah, tetap di soal yang sama (tidak berubah)
+    // Jika salah
   };
 
   const handleRestart = () => {
@@ -193,7 +193,7 @@ const Quiz = () => {
         </motion.div>
       )}
 
-      {/* Popup Card for Answer Feedback */}
+      {/* Popup Card Feedback */}
       <AnimatePresence>
         {showPopup && (
           <motion.div

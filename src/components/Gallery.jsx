@@ -31,7 +31,6 @@ const Gallery = () => {
     "/image/aib 24.jpg",
   ];
 
-  // 4 tipe rasio — cukup untuk variasi estetik
   const ratios = [
     "aspect-[3/4]",
     "aspect-[4/5]",
@@ -58,7 +57,7 @@ const Gallery = () => {
 
       <div className="columns-2 md:columns-4 gap-1 max-w-6xl mx-auto space-y-1">
         {images.map((img, index) => {
-          const randomRatio = ratios[index % ratios.length]; // urut tapi tetap variasi
+          const randomRatio = ratios[index % ratios.length];
 
           return (
             <div
@@ -97,7 +96,6 @@ const Gallery = () => {
         })}
       </div>
 
-      {/* Lightbox */}
       <AnimatePresence>
         {lightbox && (
           <motion.div

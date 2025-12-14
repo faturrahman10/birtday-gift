@@ -11,7 +11,7 @@ const Hero = () => {
         dark:from-gray-900 dark:via-gray-950 dark:to-black
       "
     >
-      {/* 🔮 Background animasi gradient */}
+      {/* Background animasi gradient */}
       <motion.div
         className="absolute inset-0"
         animate={{
@@ -33,10 +33,10 @@ const Hero = () => {
         }}
       />
 
-      {/* 🌑 Overlay agar teks kontras di kedua mode */}
+      {/* Overlay */}
       <div className="absolute inset-0 bg-white/40 dark:bg-black/50 backdrop-blur-[2px] transition-colors duration-700" />
 
-      {/* ✨ Bokeh Particles */}
+      {/* Bokeh Particles */}
       {[...Array(15)].map((_, i) => (
         <motion.div
           key={i}
@@ -66,7 +66,7 @@ const Hero = () => {
         />
       ))}
 
-      {/* 🎉 Confetti */}
+      {/* Confetti */}
       {[...Array(25)].map((_, i) => (
         <motion.span
           key={`confetti-${i}`}
@@ -91,7 +91,7 @@ const Hero = () => {
         />
       ))}
 
-      {/* 🩷 Konten utama */}
+      {/* Konten utama */}
       <motion.div
         initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
@@ -164,7 +164,7 @@ const Hero = () => {
         </motion.button>
       </motion.div>
 
-      {/* 🔆 Cahaya bawah animasi */}
+      {/* Cahaya bawah animasi */}
       <motion.div
         className="
           absolute -bottom-32 w-[600px] h-[600px]

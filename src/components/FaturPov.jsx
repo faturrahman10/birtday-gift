@@ -8,10 +8,9 @@ const FaturPov = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [open, setOpen] = useState(false);
 
-  // State untuk track ukuran layar
   const [isMobile, setIsMobile] = useState(false);
 
-  // Lock scroll background ketika modal terbuka
+  // Lock scroll background
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
     return () => (document.body.style.overflow = "auto");
@@ -29,7 +28,6 @@ const FaturPov = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // CERITA LENGKAP - Paste seluruh cerita kamu di sini
   const fullStory = `Hai namaku fatur, ini cerita tentang kisah tentang sudut pandangku selama bersama dengan seorang wanita bernama dinda, dia wanita spesialku hehee. Cerita ini bermula sejak aku masuk di bangku smp, tepatnya di MTsN Baraka, seorang anak polos yang belum mengenal handphone, social media, apalagi cinta. Aku baru mendapatkan handphone pertama di kelas 1 smp, disitulah aku mengenal yang namanya social media, terutama facebook. Mengenal facebook membuatku menjadi anak yang agak alay dalam mengupload status ataupun foto dan hal itu baru aku sadari saat dewasa haha.
 
 Di facebook aku juga banyak mengenal orang orang baru saat mengirimkan pesan ke orang random ataupun orang yang sepertinya aku kenal. hanya asal kirim pesan dengan kata “hai” atau “p” pasti dapat kenalan baru. Masih ingat dengan wanita spesial yang sebelumnya aku notice? hehe, aku mengenalnya pertama kali di facebook, entah ingatanku salah atau benar tapi kayaknya memang di facebook “coco mirakayya jo fb dinda? haha”. Dimulai dari obrolan random yang dulunya dianggap menarik tapi sekarang malah dianggap alay haha.
@@ -192,14 +190,11 @@ TO BE CONTINUE
 SAMPAI JUMPA DI SEASON 2
 `;
 
-  // Fungsi untuk membagi cerita per paragraf (tanpa batasan char)
   const splitStoryByParagraph = (story) => {
     return story.split("\n\n").filter((p) => p.trim());
   };
 
-  // Generate halaman dengan useMemo agar stabil
   const allPages = useMemo(() => {
-    // Pisah per paragraf, tanpa batasan karakter
     const contentPages = splitStoryByParagraph(fullStory);
     const pages = [];
 
@@ -220,7 +215,7 @@ SAMPAI JUMPA DI SEASON 2
       </div>
     );
 
-    // Content pages - dengan scroll
+    // Content pages
     contentPages.forEach((content, index) => {
       pages.push(
         <div key={`content-${index}`} className="bg-amber-50 p-6 shadow-inner">
@@ -313,7 +308,7 @@ SAMPAI JUMPA DI SEASON 2
         }
       `}</style>
 
-      {/* Book Icon - Clickable */}
+      {/* Book Icon */}
       <motion.div
         onClick={() => setOpen(true)}
         whileHover={{ scale: 1.08, rotate: -2 }}
@@ -423,7 +418,6 @@ SAMPAI JUMPA DI SEASON 2
                     </button>
                   </div>
 
-                  {/* Instructions */}
                   <div className="mt-3 text-center text-white/80 text-xs">
                     <p>💡 Klik tepi kanan/kiri buku untuk membalik halaman</p>
                   </div>

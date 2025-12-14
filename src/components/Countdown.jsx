@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 
-// ==========================
 //  FALLING CONFETTI
-// ==========================
 const ConfettiPiece = () => {
   const colors = ["#ff7a7a", "#ffd36e", "#8df7b5", "#8ed6ff", "#d4a8ff"];
 
@@ -40,9 +38,7 @@ const ConfettiPiece = () => {
   );
 };
 
-// ====================================
 //  CONFETTI EXPLOSION
-// ====================================
 const fireExplosion = () => {
   confetti({
     particleCount: 180,
@@ -55,9 +51,7 @@ const fireExplosion = () => {
   });
 };
 
-// ====================================
 //  COUNTDOWN COMPONENT
-// ====================================
 const Countdown = ({ onFinish }) => {
   const [timeLeft, setTimeLeft] = useState({});
   const [done, setDone] = useState(false);
@@ -111,7 +105,6 @@ const Countdown = ({ onFinish }) => {
       )}
 
       {!done ? (
-        // COUNTDOWN
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -162,7 +155,6 @@ const Countdown = ({ onFinish }) => {
           </p>
         </motion.div>
       ) : (
-        // SURPRISE
         <AnimatePresence>
           <motion.div
             key="surprise"
@@ -186,7 +178,6 @@ const Countdown = ({ onFinish }) => {
               <span className="font-semibold">Klik ini👇</span>
             </p>
 
-            {/* === BUTTON YANG MEMUTAR MUSIK SECARA SINKRON === */}
             <motion.button
               onClick={() => {
                 onFinish();

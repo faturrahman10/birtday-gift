@@ -6,7 +6,6 @@ export default function Footer() {
   return (
     <footer className="pt-10 pb-6 px-4 md:px-8 bg-gradient-to-t from-transparent to-white dark:to-black dark:from-transparent">
       <div className="max-w-6xl mx-auto">
-        {/* Content Container */}
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
           {/* Left - Message */}
           <div className="flex-1 text-center md:text-left">
@@ -22,7 +21,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Middle - Social Links */}
           <div className="flex flex-col items-center">
             <div className="flex items-center gap-4 text-sm">
               <a
