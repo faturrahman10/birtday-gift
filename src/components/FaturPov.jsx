@@ -403,7 +403,7 @@ SAMPAI JUMPA DI SEASON II
           className="w-40 md:w-48 mx-auto drop-shadow-lg"
         />
         <p className="font-playfair text-2xl text-rose-300 mb-3 text-center">
-          Buku Harian Kita
+          Fatur's pov
         </p>
       </motion.div>
 
