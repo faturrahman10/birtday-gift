@@ -186,8 +186,8 @@ Saat itu aku terus berpikir, apakah aku harus mengatakannya atau tidak. Tapi akh
 
 Aku kembali bertanya dan memastikan kepada dinda, apa jawabannya, kamu mau atau tidak. Di malam itu dinda tidak langsung menjawabnya, dia hanya berkata bahwa dia ngantuk dan ingin tidur. Sebenarnya dari obrolan singkat itu aku sudah dapat jawaban beberapa persen bahwa dinda juga mau, tapi dia belum memberikan jawaban pasti ia atau tidak. Karena itu di pagi hari aku kembali bertanya kepada dinda, apa jawabannya, dan masih saja dia tidak memberikan jawaban yang pasti. Setelah itu aku berangkat ke kampus untuk melakukan bimbingan skripsi bersama dosen, saat kembali ke rumah aku berencana untuk keluar mencari makanan, seblak menjadi pilihanku. Di warung seblak, aku kembali bertanya kepada dinda, bagaimana jawabannya, sedikit ngobrol-ngobrol sambil menggoda, tapi dinda tetap juga tidak memberikan jawaban pasti.Tapi dinda saat itu berkata kurang lebih seperti ini “ikomo jawab’i”. Aku langsung berpikir lahh? aku??, bodo’ kamu yah, kan aku yang ungkapkan perasaan, jadi yang aku mau ya ia, kan aku yang mengajak, ya jawabanku ya pasti lah ia, langsung lah kujawab ia. Dan dari situ jadian dehh mweheheheheh, “hallo pacar”.
 
-TO BE CONTINUE 
-SAMPAI JUMPA DI SEASON 2
+
+SAMPAI JUMPA DI SEASON II
 `;
 
   const splitStoryByParagraph = (story) => {
@@ -202,15 +202,21 @@ SAMPAI JUMPA DI SEASON 2
     pages.push(
       <div
         key="cover"
-        className="bg-gradient-to-br from-pink-400 to-purple-500 p-8 flex flex-col items-center justify-center"
+        className="bg-gradient-to-br from-pink-400 to-purple-400 p-8 flex flex-col items-center justify-center"
       >
-        <div className="text-white text-center">
-          <h2 className="text-4xl font-bold mb-4">💕</h2>
-          <h1 className="text-3xl font-bold mb-2">Our Story</h1>
-          <p className="text-xl mb-8">Cerita Cinta Kita</p>
-          <div className="border-t-2 border-white w-32 mx-auto mb-8"></div>
-          <p className="text-sm">Untuk: Sayangku</p>
-          <p className="text-sm">Dari: Fatur dengan Cinta</p>
+        <div className="text-white">
+          <h2 className="text-4xl font-bold mb-4 text-center">📖</h2>
+          <h1 className="text-3xl font-bold mb-2 text-center">Fatur's pov</h1>
+          <h1 className="text-md font-bold mb-2 text-center">
+            Cerita dari fatur
+          </h1>
+          <div className="border-t-2 border-white w-32 mx-auto mb-8 text-center"></div>
+          <p className="text-sm text-left mb-1">Disclaimer :</p>
+          <p className="text-xs text-left">
+            - Mungkin Ceritanya tidak beraturan waktunya, mohon maklum yaa..{" "}
+            <br /> - Dari cerita ini juga fatur lagi curhat dari apa yang dia
+            rasa tiap waktu hehe.. <br />
+          </p>
         </div>
       </div>
     );
@@ -226,9 +232,9 @@ SAMPAI JUMPA DI SEASON 2
                 {content}
               </p>
             </div>
-            {/* Page number - fixed at bottom */}
+            {/* Page number*/}
             <div className="mt-3 pt-3 border-t border-amber-200 text-right flex-shrink-0">
-              <span className="text-xs text-gray-400">Halaman {index + 2}</span>
+              <span className="text-xs text-gray-400">{index + 1}</span>
             </div>
           </div>
         </div>
@@ -242,9 +248,7 @@ SAMPAI JUMPA DI SEASON 2
           key="empty-page"
           className="bg-amber-50 p-8 shadow-inner flex items-center justify-center overflow-hidden"
         >
-          <p className="text-gray-400 italic text-center text-sm">
-            ~ Halaman ini sengaja dikosongkan ~
-          </p>
+          <p className="text-gray-400 italic text-center text-sm"></p>
         </div>
       );
     }
@@ -253,17 +257,18 @@ SAMPAI JUMPA DI SEASON 2
     pages.push(
       <div
         key="back-cover"
-        className="bg-gradient-to-br from-purple-500 to-pink-400 p-8 flex flex-col items-center justify-center"
+        className="bg-gradient-to-br from-purple-400 to-pink-400 p-8 flex flex-col items-center justify-center"
       >
         <div className="text-white text-center">
-          <h2 className="text-3xl font-bold mb-4">❤️</h2>
-          <p className="text-xl mb-4">Cerita kita belum berakhir...</p>
-          <p className="text-lg">
-            Masih banyak halaman yang akan kita tulis bersama
-          </p>
+          <h2 className="text-3xl font-bold mb-4">📖</h2>
+          <p className="text-xl mb-4 font-semibold">To Be Continue..</p>
+          <p className="text-md mb-2">Cerita nya belum berakhir yaah</p>
+          <div className="border-t-2 border-white w-32 mx-auto mb-8 text-center"></div>
           <div className="mt-8">
-            <p className="text-2xl font-bold">I Love You</p>
-            <p className="text-lg">Forever & Always</p>
+            <p className="text-2xl font-bold">📖</p>
+            <p className="text-xs">
+              Makasih sudah membaca cerita dan curhatan patur hehe
+            </p>
           </div>
         </div>
       </div>
@@ -400,7 +405,7 @@ SAMPAI JUMPA DI SEASON 2
                     <button
                       onClick={prevPage}
                       disabled={currentPage === 0}
-                      className="bg-purple-600/80 hover:bg-purple-700 disabled:bg-gray-400/60 text-white px-5 py-2 rounded-lg font-medium transition-all transform hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed text-sm backdrop-blur-sm"
+                      className="bg-pink-500 hover:bg-pink-600 disabled:bg-gray-400/60 text-white px-5 py-2 rounded-lg font-medium transition-all transform hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed text-sm backdrop-blur-sm"
                     >
                       ← Prev
                     </button>
@@ -412,7 +417,7 @@ SAMPAI JUMPA DI SEASON 2
                     <button
                       onClick={nextPage}
                       disabled={currentPage >= totalPages - 1}
-                      className="bg-purple-600/80 hover:bg-purple-700 disabled:bg-gray-400/60 text-white px-5 py-2 rounded-lg font-medium transition-all transform hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed text-sm backdrop-blur-sm"
+                      className="bg-pink-500/80 hover:bg-pink-600 disabled:bg-gray-400/60 text-white px-5 py-2 rounded-lg font-medium transition-all transform hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed text-sm backdrop-blur-sm"
                     >
                       Next →
                     </button>
