@@ -7,24 +7,52 @@ const FaturPov = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [open, setOpen] = useState(false);
-
   const [isMobile, setIsMobile] = useState(false);
 
-  // Lock scroll background
+  // Quiz states
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [showBook, setShowBook] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState("");
+  const [isFinished, setIsFinished] = useState(false);
+  const [feedback, setFeedback] = useState("");
+
+  const questions = [
+    {
+      q: "Siapa nama pacar kesayanganmu satu-satunya?",
+      options: ["Haechan", "Fatur", "Mark", "Jaemin"],
+      a: "fatur",
+      correctFeedback:
+        "Benar banget! Fatur memang satu-satunya yang paling kamu sayang 💖",
+      wrongFeedback:
+        "Yakin jawabannya itu? Coba pikir lagi siapa yang selalu ada buat kamu 🥺",
+    },
+    {
+      q: "Fatur lebih ganteng 100% dari Haechan kan?",
+      options: ["Tidak", "Mungkin", "Ya", "Ragu-ragu"],
+      a: "ya",
+      correctFeedback:
+        "Nah gitu dong! Fatur emang lebih ganteng, ga ada yang bisa nandingin 😎✨",
+      wrongFeedback:
+        "Eh salah! Harusnya kamu bilang 'Ya' dong, masa ragu? Coba lagi! 😤",
+    },
+  ];
+
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
     return () => (document.body.style.overflow = "auto");
   }, [open]);
 
-  // Detect mobile/desktop
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-
     checkMobile();
     window.addEventListener("resize", checkMobile);
-
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
@@ -189,7 +217,6 @@ Aku kembali bertanya dan memastikan kepada dinda, apa jawabannya, kamu mau atau 
 
 SAMPAI JUMPA DI SEASON II
 `;
-
   const splitStoryByParagraph = (story) => {
     return story.split("\n\n").filter((p) => p.trim());
   };
@@ -198,7 +225,6 @@ SAMPAI JUMPA DI SEASON II
     const contentPages = splitStoryByParagraph(fullStory);
     const pages = [];
 
-    // Cover
     pages.push(
       <div
         key="cover"
@@ -214,25 +240,23 @@ SAMPAI JUMPA DI SEASON II
           <p className="text-sm text-left mb-1">Disclaimer :</p>
           <p className="text-xs text-left">
             - Mungkin Ceritanya tidak beraturan waktunya, mohon maklum yaa..{" "}
-            <br /> - Dari cerita ini juga fatur lagi curhat dari apa yang dia
-            rasa tiap waktu hehe.. <br />
+            <br />
+            - Dari cerita ini juga fatur lagi curhat dari apa yang dia rasa tiap
+            waktu hehe.. <br />
           </p>
         </div>
       </div>
     );
 
-    // Content pages
     contentPages.forEach((content, index) => {
       pages.push(
         <div key={`content-${index}`} className="bg-amber-50 p-6 shadow-inner">
           <div className="h-full flex flex-col">
-            {/* Scrollable content area */}
             <div className="flex-1 overflow-y-auto overflow-x-hidden pr-2 custom-scrollbar">
               <p className="text-gray-700 leading-relaxed whitespace-pre-line font-serif text-xs md:text-sm text-justify indent-8">
                 {content}
               </p>
             </div>
-            {/* Page number*/}
             <div className="mt-3 pt-3 border-t border-amber-200 text-right flex-shrink-0">
               <span className="text-xs text-gray-400">{index + 1}</span>
             </div>
@@ -241,7 +265,6 @@ SAMPAI JUMPA DI SEASON II
       );
     });
 
-    // Empty page if needed
     if (contentPages.length % 2 !== 0) {
       pages.push(
         <div
@@ -253,7 +276,6 @@ SAMPAI JUMPA DI SEASON II
       );
     }
 
-    // Back cover
     pages.push(
       <div
         key="back-cover"
@@ -277,6 +299,67 @@ SAMPAI JUMPA DI SEASON II
     return pages;
   }, [fullStory]);
 
+  const handleAnswer = (answer) => {
+    const correct =
+      answer.toLowerCase().trim() ===
+      questions[currentQuestion].a.toLowerCase().trim();
+    setSelectedAnswer(answer);
+    setIsCorrect(correct);
+    setShowPopup(true);
+    if (correct) {
+      setScore(score + 1);
+      setFeedback(questions[currentQuestion].correctFeedback);
+    } else {
+      setFeedback(questions[currentQuestion].wrongFeedback);
+    }
+  };
+
+  const handleNext = () => {
+    setShowPopup(false);
+    setSelectedAnswer("");
+    if (isCorrect) {
+      if (currentQuestion < questions.length - 1) {
+        setCurrentQuestion(currentQuestion + 1);
+      } else {
+        setIsFinished(true);
+      }
+    }
+  };
+
+  const handleOpenBook = () => {
+    setShowQuiz(false);
+    setIsFinished(false);
+    setShowBook(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setShowConfirm(false);
+    setShowQuiz(false);
+    setShowBook(false);
+    setCurrentQuestion(0);
+    setScore(0);
+    setShowPopup(false);
+    setSelectedAnswer("");
+    setIsFinished(false);
+    setFeedback("");
+    setCurrentPage(0);
+  };
+
+  const handleClickBook = () => {
+    setOpen(true);
+    setShowConfirm(true);
+  };
+
+  const handleConfirmYes = () => {
+    setShowConfirm(false);
+    setShowQuiz(true);
+  };
+
+  const handleConfirmNo = () => {
+    handleClose();
+  };
+
   const onFlip = (e) => {
     setCurrentPage(e.data);
   };
@@ -293,29 +376,23 @@ SAMPAI JUMPA DI SEASON II
     }
   };
 
+  const getMessage = () => {
+    if (score === questions.length)
+      return "Kamu benar-benar pasangan terbaik di alam semesta 💖✨";
+    return "Kamu sangat mengenalku, aku makin sayang 💕";
+  };
+
   return (
     <section className="py-24 px-4 md:px-8 text-center">
-      {/* Custom Scrollbar Style */}
       <style>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: #fef3c7;
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #d97706;
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #b45309;
-        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #fef3c7; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d97706; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #b45309; }
       `}</style>
 
-      {/* Book Icon */}
       <motion.div
-        onClick={() => setOpen(true)}
+        onClick={handleClickBook}
         whileHover={{ scale: 1.08, rotate: -2 }}
         transition={{ type: "spring", stiffness: 300 }}
         className="inline-block cursor-pointer"
@@ -330,11 +407,9 @@ SAMPAI JUMPA DI SEASON II
         </p>
       </motion.div>
 
-      {/* MODAL OVERLAY */}
       <AnimatePresence>
         {open && (
           <>
-            {/* Overlay Background */}
             <motion.div
               className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[51]"
               initial={{ opacity: 0 }}
@@ -342,93 +417,287 @@ SAMPAI JUMPA DI SEASON II
               exit={{ opacity: 0 }}
             />
 
-            {/* CLOSE BUTTON */}
             <button
-              onClick={() => setOpen(false)}
-              className="
-                fixed top-4 right-4 bg-white text-rose-500 text-xl 
-                w-10 h-10 rounded-full flex items-center justify-center shadow-lg
-                z-[60] font-semibold cursor-pointer hover:bg-rose-50 transition-colors
-              "
+              onClick={handleClose}
+              className="fixed top-4 right-4 bg-white text-rose-500 text-xl w-10 h-10 rounded-full flex items-center justify-center shadow-lg z-[60] font-semibold cursor-pointer hover:bg-rose-50 transition-colors"
             >
               ✕
             </button>
 
-            {/* Modal Content */}
             <motion.div
               className="fixed inset-0 z-[53] flex items-center justify-center px-4 py-10"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <div className="relative">
+              {showConfirm && (
                 <motion.div
-                  initial={{ scale: 0.9, y: 30 }}
-                  animate={{ scale: 1, y: 0 }}
-                  exit={{ scale: 0.9, opacity: 0 }}
-                  transition={{ duration: 0.25 }}
-                  className="bg-transparent"
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 max-w-md border-2 border-rose-200 dark:border-gray-700"
                 >
-                  {/* Flip Book */}
-                  <div className="mb-6">
-                    <HTMLFlipBook
-                      ref={book}
-                      width={isMobile ? 300 : 350}
-                      height={isMobile ? 450 : 500}
-                      size="stretch"
-                      minWidth={isMobile ? 250 : 280}
-                      maxWidth={isMobile ? 350 : 450}
-                      minHeight={isMobile ? 380 : 400}
-                      maxHeight={isMobile ? 550 : 600}
-                      showCover={true}
-                      mobileScrollSupport={true}
-                      onFlip={onFlip}
-                      onInit={(e) => {
-                        if (e && e.object && e.object.pages) {
-                          setTotalPages(e.object.pages.length);
-                        }
-                      }}
-                      className="shadow-2xl"
-                      drawShadow={true}
-                      flippingTime={1000}
-                      usePortrait={isMobile}
-                      startPage={0}
-                      autoSize={true}
-                      maxShadowOpacity={0.5}
-                    >
-                      {allPages}
-                    </HTMLFlipBook>
-                  </div>
-
-                  {/* Navigation Controls */}
-                  <div className="flex items-center justify-center gap-4 mt-6">
-                    <button
-                      onClick={prevPage}
-                      disabled={currentPage === 0}
-                      className="bg-pink-500 hover:bg-pink-600 disabled:bg-gray-400/60 text-white px-5 py-2 rounded-lg font-medium transition-all transform hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed text-sm backdrop-blur-sm"
-                    >
-                      ← Prev
-                    </button>
-
-                    <span className="text-white font-medium text-sm bg-black/20 backdrop-blur-sm px-4 py-2 rounded-lg">
-                      {currentPage + 1} / {totalPages}
-                    </span>
-
-                    <button
-                      onClick={nextPage}
-                      disabled={currentPage >= totalPages - 1}
-                      className="bg-pink-500/80 hover:bg-pink-600 disabled:bg-gray-400/60 text-white px-5 py-2 rounded-lg font-medium transition-all transform hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed text-sm backdrop-blur-sm"
-                    >
-                      Next →
-                    </button>
-                  </div>
-
-                  <div className="mt-3 text-center text-white/80 text-xs">
-                    <p>💡 Klik tepi kanan/kiri buku untuk membalik halaman</p>
+                  <div className="text-center">
+                    <div className="text-5xl mb-4">📝</div>
+                    <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">
+                      Konfirmasi
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 mb-6">
+                      Kamu harus mengerjakan quiz dulu sebelum bisa membaca
+                      Fatur's POV. Siap?
+                    </p>
+                    <div className="flex gap-3 justify-center">
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={handleConfirmNo}
+                        className="px-6 py-3 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-xl font-semibold transition-colors"
+                      >
+                        Tidak
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={handleConfirmYes}
+                        className="px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow"
+                      >
+                        Ya, Siap!
+                      </motion.button>
+                    </div>
                   </div>
                 </motion.div>
-              </div>
+              )}
+
+              {showQuiz && !isFinished && (
+                <div className="w-full max-w-2xl">
+                  <div className="mb-10">
+                    <div className="flex justify-between items-center mb-3">
+                      <span className="text-sm text-white">
+                        Pertanyaan {currentQuestion + 1} dari {questions.length}
+                      </span>
+                      <span className="text-sm font-semibold text-rose-400">
+                        Score: {score} / {questions.length}
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
+                      <motion.div
+                        className="bg-gradient-to-r from-rose-400 to-pink-500 h-3"
+                        initial={{ width: 0 }}
+                        animate={{
+                          width: `${(score / questions.length) * 100}%`,
+                        }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                      />
+                    </div>
+                  </div>
+
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentQuestion}
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -50 }}
+                      transition={{ duration: 0.4 }}
+                      className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border-2 border-rose-100 dark:border-gray-700"
+                    >
+                      <div className="mb-8">
+                        <span className="inline-block px-4 py-1 bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 rounded-full text-sm font-medium mb-4">
+                          Pertanyaan {currentQuestion + 1}
+                        </span>
+                        <h3 className="text-xl md:text-2xl font-medium text-gray-800 dark:text-gray-100 leading-relaxed">
+                          {questions[currentQuestion].q}
+                        </h3>
+                      </div>
+
+                      <div className="space-y-3">
+                        {questions[currentQuestion].options.map(
+                          (option, index) => (
+                            <motion.button
+                              key={index}
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                              onClick={() => handleAnswer(option)}
+                              disabled={selectedAnswer !== ""}
+                              className={`w-full p-4 text-left rounded-xl border-2 transition-all duration-200 
+                              ${
+                                selectedAnswer === option
+                                  ? "border-rose-500 bg-rose-50 dark:bg-rose-900/30"
+                                  : "border-gray-200 dark:border-gray-600 hover:border-rose-300 dark:hover:border-rose-500 bg-white dark:bg-gray-700"
+                              }
+                              ${
+                                selectedAnswer !== "" &&
+                                selectedAnswer !== option
+                                  ? "opacity-50"
+                                  : ""
+                              }
+                              disabled:cursor-not-allowed
+                            `}
+                            >
+                              <div className="flex items-center">
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-400 flex items-center justify-center font-semibold mr-4">
+                                  {String.fromCharCode(65 + index)}
+                                </span>
+                                <span className="text-gray-700 dark:text-gray-200 font-medium">
+                                  {option}
+                                </span>
+                              </div>
+                            </motion.button>
+                          )
+                        )}
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              )}
+
+              {showQuiz && isFinished && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="max-w-2xl text-center"
+                >
+                  <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-10 border-2 border-rose-200 dark:border-gray-700">
+                    <div className="text-6xl mb-6">🎉</div>
+                    <h3 className="text-3xl font-playfair text-gray-800 dark:text-gray-100 mb-4">
+                      Quiz Selesai!
+                    </h3>
+                    <div className="text-5xl font-bold text-rose-600 dark:text-rose-400 mb-6">
+                      {score} / {questions.length}
+                    </div>
+                    <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                      {getMessage()}
+                    </p>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={handleOpenBook}
+                      className="px-8 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-xl text-lg font-medium shadow-lg hover:shadow-xl transition-shadow"
+                    >
+                      Lanjut Baca Cerita 📖
+                    </motion.button>
+                  </div>
+                </motion.div>
+              )}
+
+              {showBook && (
+                <div className="relative">
+                  <motion.div
+                    initial={{ scale: 0.9, y: 30 }}
+                    animate={{ scale: 1, y: 0 }}
+                    transition={{ duration: 0.25 }}
+                  >
+                    <div className="mb-6">
+                      <HTMLFlipBook
+                        ref={book}
+                        width={isMobile ? 300 : 350}
+                        height={isMobile ? 450 : 500}
+                        size="stretch"
+                        minWidth={isMobile ? 250 : 280}
+                        maxWidth={isMobile ? 350 : 450}
+                        minHeight={isMobile ? 380 : 400}
+                        maxHeight={isMobile ? 550 : 600}
+                        showCover={true}
+                        mobileScrollSupport={true}
+                        onFlip={onFlip}
+                        onInit={(e) => {
+                          if (e && e.object && e.object.pages) {
+                            setTotalPages(e.object.pages.length);
+                          }
+                        }}
+                        className="shadow-2xl"
+                        drawShadow={true}
+                        flippingTime={1000}
+                        usePortrait={isMobile}
+                        startPage={0}
+                        autoSize={true}
+                        maxShadowOpacity={0.5}
+                      >
+                        {allPages}
+                      </HTMLFlipBook>
+                    </div>
+
+                    <div className="flex items-center justify-center gap-4 mt-6">
+                      <button
+                        onClick={prevPage}
+                        disabled={currentPage === 0}
+                        className="bg-pink-500 hover:bg-pink-600 disabled:bg-gray-400/60 text-white px-5 py-2 rounded-lg font-medium transition-all transform hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed text-sm backdrop-blur-sm"
+                      >
+                        ← Prev
+                      </button>
+
+                      <span className="text-white font-medium text-sm bg-black/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                        {currentPage + 1} / {totalPages}
+                      </span>
+
+                      <button
+                        onClick={nextPage}
+                        disabled={currentPage >= totalPages - 1}
+                        className="bg-pink-500/80 hover:bg-pink-600 disabled:bg-gray-400/60 text-white px-5 py-2 rounded-lg font-medium transition-all transform hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed text-sm backdrop-blur-sm"
+                      >
+                        Next →
+                      </button>
+                    </div>
+
+                    <div className="mt-3 text-center text-white/80 text-xs">
+                      <p>💡 Klik tepi kanan/kiri buku untuk membalik halaman</p>
+                    </div>
+                  </motion.div>
+                </div>
+              )}
             </motion.div>
+
+            <AnimatePresence>
+              {showPopup && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[70] p-4"
+                  onClick={handleNext}
+                >
+                  <motion.div
+                    initial={{ scale: 0.5, opacity: 0, y: 50 }}
+                    animate={{ scale: 1, opacity: 1, y: 0 }}
+                    exit={{ scale: 0.5, opacity: 0, y: 50 }}
+                    transition={{ type: "spring", duration: 0.5 }}
+                    className={`max-w-md w-full rounded-2xl p-8 shadow-2xl ${
+                      isCorrect
+                        ? "bg-gradient-to-br from-green-400 to-emerald-500"
+                        : "bg-gradient-to-br from-red-400 to-pink-500"
+                    }`}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="text-center text-white">
+                      <motion.div
+                        className="text-7xl mb-4"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", delay: 0.2 }}
+                      >
+                        {isCorrect ? "✅" : "❌"}
+                      </motion.div>
+                      <h3 className="text-3xl font-bold mb-3">
+                        {isCorrect ? "Benar!" : "Salah!"}
+                      </h3>
+                      <p className="text-lg mb-6 opacity-90 leading-relaxed">
+                        {feedback}
+                      </p>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={handleNext}
+                        className="px-8 py-3 bg-white text-gray-800 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow"
+                      >
+                        {isCorrect
+                          ? currentQuestion < questions.length - 1
+                            ? "Lanjut →"
+                            : "Lihat Hasil 🎉"
+                          : "Coba Lagi 🔄"}
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </>
         )}
       </AnimatePresence>
