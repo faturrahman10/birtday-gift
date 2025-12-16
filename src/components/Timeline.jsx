@@ -52,10 +52,10 @@ const Timeline = () => {
   ];
 
   return (
-    <section className="py-20 px-4 md:px-8 relative overflow-hidden">
+    <section className="py-10 px-4 md:px-8 relative overflow-hidden">
       {/* JUDUL TIMELINE */}
       <motion.h2
-        className="text-3xl md:text-4xl font-playfair text-center mb-12 text-gray-800 dark:text-rose-100"
+        className="text-3xl md:text-4xl font-playfair text-center text-gray-800 dark:text-rose-100"
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -63,6 +63,10 @@ const Timeline = () => {
       >
         Timeline
       </motion.h2>
+
+      <div className="mt-3 text-center dark:text-white/80 text-gray-500 text-xs">
+        <p>💡 Timeline nya panjang tapi ini dulu aja ahh</p>
+      </div>
 
       {/* GARIS TENGAH */}
       <div className="relative max-w-5xl mx-auto mt-12 pb-16">
@@ -133,7 +137,7 @@ const Timeline = () => {
 
       {/* JUDUL CAROUSEL */}
       <motion.h3
-        className="text-2xl md:text-3xl font-playfair text-center mt-6 mb-8 text-gray-800 dark:text-rose-200"
+        className="text-2xl md:text-3xl font-playfair text-center mt-6 -mb-0.5 text-gray-800 dark:text-rose-200"
         initial={{ opacity: 0, y: -10 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -141,6 +145,10 @@ const Timeline = () => {
       >
         And Now ❤️
       </motion.h3>
+
+      <div className="mt-3 text-center dark:text-white/80 text-gray-500 text-xs">
+        <p>💡 Pelan-pelan saja liatnya, fotonya kebanyakan</p>
+      </div>
 
       {/* CAROUSEL */}
       <Carousel images={carouselImages} speed={1.2} />

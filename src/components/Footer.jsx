@@ -4,7 +4,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="pt-10 pb-6 px-4 md:px-8 bg-gradient-to-t from-transparent to-white dark:to-black dark:from-transparent">
+    <footer className="pt-10 pb-6 px-4 md:px-8 bg-pink-50 dark:bg-gray-900">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
           {/* Left - Message */}
@@ -79,7 +79,7 @@ export default function Footer() {
         {/* Bottom small note */}
         <div className="mt-6 border-t border-gray-100 dark:border-gray-800 pt-4">
           <p className="text-center text-xs text-gray-500 dark:text-gray-400">
-            Website ini dibuat khusus untuk seseorang yang sangat berarti 💞
+            Website ini dibuat khusus untuk hari ulang tahun Dinda 💞
           </p>
         </div>
       </div>
