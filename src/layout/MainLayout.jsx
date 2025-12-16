@@ -62,6 +62,18 @@ export default function MainLayout() {
     }
   };
 
+  // Function untuk play musik dari onboarding
+  const handlePlayMusicFromOnboarding = async () => {
+    if (!audioLoaded) return;
+    const audio = audioRef.current;
+    try {
+      await audio.play();
+      setMusicPlaying(true);
+    } catch (e) {
+      console.warn("Play blocked:", e);
+    }
+  };
+
   const HIDE_BUTTONS = ["/secret"];
   const hideButtons = HIDE_BUTTONS.includes(location.pathname);
 
@@ -81,6 +93,8 @@ export default function MainLayout() {
           setStepFromParent={(s) => {
             setOnboardingStep(s);
           }}
+          onPlayMusic={handlePlayMusicFromOnboarding}
+          audioLoaded={audioLoaded}
         />
       )}
 
