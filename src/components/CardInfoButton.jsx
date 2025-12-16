@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-export default function CardInfoButton({ setStepFromParent = () => {} }) {
+export default function CardInfoButton({
+  setStepFromParent = () => {},
+  onPlayMusic = () => {},
+  audioLoaded = false,
+}) {
   const [step, setStep] = useState(0);
 
   useEffect(() => {
@@ -18,9 +22,12 @@ export default function CardInfoButton({ setStepFromParent = () => {} }) {
     }
   }, [step, setStepFromParent]);
 
-  const nextStep = () => {
-    if (step === 1) setStep(2);
-    else if (step === 2) {
+  const nextStep = async () => {
+    if (step === 1) {
+      setStep(2);
+    } else if (step === 2) {
+      // Play musik sebelum close
+      await onPlayMusic();
       localStorage.setItem("onboarding_v1_done", "yes");
       setStep(3);
     }
@@ -93,13 +100,17 @@ export default function CardInfoButton({ setStepFromParent = () => {} }) {
 
         <button
           onClick={nextStep}
+          disabled={step === 2 && !audioLoaded}
           className="
             mt-4 w-full py-1.5 rounded-lg 
             bg-rose-500 hover:bg-rose-600 
+            disabled:bg-gray-400 disabled:cursor-not-allowed
             text-white text-sm font-medium
+            transition-colors
           "
         >
-          Oke, mengerti!
+          {step === 1 && "Oke, mengerti!"}
+          {step === 2 && (audioLoaded ? "Oke, Play! 🎵" : "Loading... ⏳")}
         </button>
       </div>
     </>
