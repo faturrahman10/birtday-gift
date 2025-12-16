@@ -110,13 +110,13 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
         className="
           relative -mb-0.5 mx-auto w-fit cursor-pointer 
           text-rose-500 dark:text-rose-300
-          hover:font-semibold text-lg
+          hover:font-semibold text-md
           transition duration-300
           hover:text-rose-600 dark:hover:text-rose-400
           animate-pulse
         "
       >
-        Special Foto..
+        more moto...
       </p>
 
       <div className="mt-3 text-center dark:text-white/80 text-gray-500 text-xs">
@@ -137,12 +137,12 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
             <button
               onClick={closeLightbox}
               className="
-                absolute -top-3 -right-3 bg-white text-black
-                w-8 h-8 rounded-full shadow-md flex items-center justify-center
-                text-lg font-bold hover:bg-red-500 hover:text-white transition
+                absolute -top-3 -right-3 bg-white text-rose-500
+                w-10 h-10 rounded-full shadow-md flex items-center justify-center
+                text-lg font-bold hover:bg-rose-50 transition cursor-pointer
               "
             >
-              ×
+              ✕
             </button>
           </div>
         </div>
