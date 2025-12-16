@@ -118,7 +118,7 @@ const Gallery = () => {
 
             <button
               onClick={() => setLightbox(null)}
-              className="absolute top-6 right-6 text-white text-3xl font-light hover:scale-110 transition"
+              className="absolute top-6 right-6 w-10 rounded-full bg-white hover:bg-rose-50 h-10 text-rose-500 text-xl cursor-pointer hover:scale-110 shadow-md font-semibold transition"
             >
               ✕
             </button>
