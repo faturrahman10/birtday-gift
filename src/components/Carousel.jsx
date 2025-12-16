@@ -116,7 +116,7 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
           animate-pulse
         "
       >
-        Foto spesial lainnya..
+        Special Foto..
       </p>
 
       {lightboxImg && (
