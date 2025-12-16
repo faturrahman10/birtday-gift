@@ -21,12 +21,12 @@ const Letter = () => {
         <img
           src="/icon/love-letter.png"
           alt="Envelope"
-          className="w-40 md:w-48 mx-auto drop-shadow-lg"
+          className="w-30 md:w-38 mx-auto drop-shadow-lg"
         />
-        <p className="font-playfair text-2xl text-rose-300 text-center">
-          Greeting Card
-        </p>
       </motion.div>
+      <p className="font-playfair text-2xl text-rose-300 text-center">
+        Greeting Card
+      </p>
 
       <div className="mt-3 text-center dark:text-white/80 text-gray-500 text-xs">
         <p>💡 Kartu ucapan dari fatur, dibaca yaah</p>
@@ -56,12 +56,12 @@ const Letter = () => {
                 <button
                   onClick={() => setOpen(false)}
                   className="
-                    absolute -top-3 -right-3 bg-white text-rose-500 text-xl 
+                    absolute -top-3 -right-3 bg-white hover:bg-rose-50 text-rose-500 text-xl 
                     w-10 h-10 rounded-full flex items-center justify-center shadow-md
                     z-50 font-semibold cursor-pointer
                   "
                 >
-                  X
+                  ✕
                 </button>
 
                 {/* Modal Card */}
@@ -110,7 +110,7 @@ const Letter = () => {
                       semoga nda bosan sama cowok satu ini hehee😁
                       <br />
                       <br />
-                      Nda bisa bikir surat panjang-panjang karna kepenuhan nanti
+                      Nda bisa bikin surat panjang-panjang karna kepenuhan nanti
                       layarnya haha, segitu dulu yaa beccu imutkuu😘😘
                     </p>
                   </div>
