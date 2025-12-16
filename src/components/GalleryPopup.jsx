@@ -45,7 +45,7 @@ export default function GalleryPopup({ open, onClose, onConfirm }) {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={onClose}
-                  className="cursor-pointer px-6 py-3 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-xl font-semibold transition-colors"
+                  className="px-6 py-3 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-xl font-semibold transition-colors"
                 >
                   Nanti deh
                 </motion.button>
@@ -54,7 +54,7 @@ export default function GalleryPopup({ open, onClose, onConfirm }) {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={onConfirm}
-                  className="cursor-pointer px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow"
+                  className="px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow"
                 >
                   Aku kepo, lanjut!
                 </motion.button>

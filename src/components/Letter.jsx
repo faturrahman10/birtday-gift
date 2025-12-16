@@ -21,12 +21,12 @@ const Letter = () => {
         <img
           src="/icon/love-letter.png"
           alt="Envelope"
-          className="w-30 md:w-38 mx-auto drop-shadow-lg"
+          className="w-40 md:w-48 mx-auto drop-shadow-lg"
         />
+        <p className="font-playfair text-2xl text-rose-300 text-center">
+          Greeting Card
+        </p>
       </motion.div>
-      <p className="font-playfair text-2xl text-rose-300 text-center">
-        Greeting Card
-      </p>
 
       <div className="mt-3 text-center dark:text-white/80 text-gray-500 text-xs">
         <p>💡 Kartu ucapan dari fatur, dibaca yaah</p>

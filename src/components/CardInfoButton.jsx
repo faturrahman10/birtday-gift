@@ -26,6 +26,7 @@ export default function CardInfoButton({
     if (step === 1) {
       setStep(2);
     } else if (step === 2) {
+      // Play musik sebelum close
       await onPlayMusic();
       localStorage.setItem("onboarding_v1_done", "yes");
       setStep(3);
@@ -79,8 +80,8 @@ export default function CardInfoButton({
               🌙 Dark Mode
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-300">
-              Tombol <b>kiri atas</b> untuk ganti tema <b>dark / light mode</b>.
-              Rekomendasiku <b>dark</b>
+              Tombol <b>kiri atas</b> digunakan untuk mengganti tema antara{" "}
+              <b>dark / light mode</b>.
             </p>
           </>
         )}
@@ -91,7 +92,8 @@ export default function CardInfoButton({
               🎵 Musik
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-300">
-              Tombol <b>kanan atas</b> untuk <b>play/pause musik</b>.
+              Tombol <b>kanan atas</b> digunakan untuk{" "}
+              <b>play dan pause musik</b>.
             </p>
           </>
         )}
@@ -104,7 +106,7 @@ export default function CardInfoButton({
             bg-rose-500 hover:bg-rose-600 
             disabled:bg-gray-400 disabled:cursor-not-allowed
             text-white text-sm font-medium
-            transition-colors cursor-pointer
+            transition-colors
           "
         >
           {step === 1 && "Oke, mengerti!"}
