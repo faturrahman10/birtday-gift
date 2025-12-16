@@ -147,7 +147,7 @@ const Timeline = () => {
       </motion.h3>
 
       <div className="mt-3 text-center dark:text-white/80 text-gray-500 text-xs">
-        <p>💡 Pelan-pelan saja liatnya, fotonya kebanyakan</p>
+        <p>💡 Pelan-pelan saja liatnya, fotonya banyak</p>
       </div>
 
       {/* CAROUSEL */}
