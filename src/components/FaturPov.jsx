@@ -402,10 +402,14 @@ SAMPAI JUMPA DI SEASON II
           alt="Book"
           className="w-40 md:w-48 mx-auto drop-shadow-lg"
         />
-        <p className="font-playfair text-2xl text-rose-300 mb-3 text-center">
+        <p className="font-playfair text-2xl text-rose-300 text-center">
           Fatur's pov
         </p>
       </motion.div>
+
+      <div className="mt-3 text-center text-white/80 text-xs">
+        <p>💡 Ceritanya agak panjang, jadi semoga nda bosan</p>
+      </div>
 
       <AnimatePresence>
         {open && (

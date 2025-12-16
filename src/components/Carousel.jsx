@@ -116,8 +116,12 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
           animate-pulse
         "
       >
-        Foto spesial lainnya..
+        Special Foto..
       </p>
+
+      <div className="mt-3 text-center text-white/80 text-xs">
+        <p>💡 Masih banyak foto yang lain, klik tombol diatas</p>
+      </div>
 
       {lightboxImg && (
         <div
