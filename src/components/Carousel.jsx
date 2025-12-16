@@ -108,7 +108,7 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
       <p
         onClick={() => setShowPopup(true)}
         className="
-          relative mx-auto w-fit cursor-pointer 
+          relative -mb-0.5 mx-auto w-fit cursor-pointer 
           text-rose-500 dark:text-rose-300
           hover:font-semibold text-lg
           transition duration-300
@@ -120,7 +120,7 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
       </p>
 
       <div className="mt-3 text-center text-white/80 text-xs">
-        <p>💡 Masih banyak foto yang lain, klik tombol diatas</p>
+        <p>💡 Fotonya masi banyak, kalo mau, klik tombol di atas</p>
       </div>
 
       {lightboxImg && (
