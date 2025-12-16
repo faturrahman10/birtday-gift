@@ -116,7 +116,7 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
           animate-pulse
         "
       >
-        more moto...
+        more foto...
       </p>
 
       <div className="mt-3 text-center dark:text-white/80 text-gray-500 text-xs">
