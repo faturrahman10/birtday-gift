@@ -27,18 +27,16 @@ const FaturPov = () => {
       options: ["Haechan", "Fatur", "Mark", "Jaemin"],
       a: "fatur",
       correctFeedback:
-        "Benar banget! Fatur memang satu-satunya yang paling kamu sayang 💖",
-      wrongFeedback:
-        "Yakin jawabannya itu? Coba pikir lagi siapa yang selalu ada buat kamu 🥺",
+        "Ciee, nda pilih haechan haha, kamu juga kesayanganku 💖",
+      wrongFeedback: "Yakiinnn? kayaknya salah deh, coba pilihan lain! 😜",
     },
     {
       q: "Fatur lebih ganteng 100% dari Haechan kan?",
       options: ["Tidak", "Mungkin", "Ya", "Ragu-ragu"],
       a: "ya",
       correctFeedback:
-        "Nah gitu dong! Fatur emang lebih ganteng, ga ada yang bisa nandingin 😎✨",
-      wrongFeedback:
-        "Eh salah! Harusnya kamu bilang 'Ya' dong, masa ragu? Coba lagi! 😤",
+        "Bener banget, fatur itu paling ganteng, imut, dan gemesin banget! 🤣",
+      wrongFeedback: "Ehh kamu salah jawab tuh, coba cek lagi jawabannya! 😁",
     },
   ];
 
@@ -378,8 +376,7 @@ SAMPAI JUMPA DI SEASON II
 
   const getMessage = () => {
     if (score === questions.length)
-      return "Kamu benar-benar pasangan terbaik di alam semesta 💖✨";
-    return "Kamu sangat mengenalku, aku makin sayang 💕";
+      return "Ayo kita lanjut baca pov nya fatur, gas gas gassss!";
   };
 
   return (
@@ -446,25 +443,25 @@ SAMPAI JUMPA DI SEASON II
                       Konfirmasi
                     </h3>
                     <p className="text-gray-600 dark:text-gray-300 mb-6">
-                      Kamu harus mengerjakan quiz dulu sebelum bisa membaca
-                      Fatur's POV. Siap?
+                      Kalau mau baca fatur's pov, harus lewati tes ini dulu yah,
+                      siap?
                     </p>
                     <div className="flex gap-3 justify-center">
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={handleConfirmNo}
-                        className="px-6 py-3 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-xl font-semibold transition-colors"
+                        className="cursor-pointer px-6 py-3 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-xl font-semibold transition-colors"
                       >
-                        Tidak
+                        Nanti deh
                       </motion.button>
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={handleConfirmYes}
-                        className="px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow"
+                        className="cursor-pointer px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow"
                       >
-                        Ya, Siap!
+                        Siap, Gas!
                       </motion.button>
                     </div>
                   </div>
@@ -562,7 +559,7 @@ SAMPAI JUMPA DI SEASON II
                   <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-10 border-2 border-rose-200 dark:border-gray-700">
                     <div className="text-6xl mb-6">🎉</div>
                     <h3 className="text-3xl font-playfair text-gray-800 dark:text-gray-100 mb-4">
-                      Quiz Selesai!
+                      Yeeeyyyy Berhasil
                     </h3>
                     <div className="text-5xl font-bold text-rose-600 dark:text-rose-400 mb-6">
                       {score} / {questions.length}
@@ -574,9 +571,9 @@ SAMPAI JUMPA DI SEASON II
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={handleOpenBook}
-                      className="px-8 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-xl text-lg font-medium shadow-lg hover:shadow-xl transition-shadow"
+                      className="cursor-pointer px-8 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-xl text-lg font-medium shadow-lg hover:shadow-xl transition-shadow"
                     >
-                      Lanjut Baca Cerita 📖
+                      Baca Fatur's pov 📖
                     </motion.button>
                   </div>
                 </motion.div>
@@ -623,7 +620,7 @@ SAMPAI JUMPA DI SEASON II
                       <button
                         onClick={prevPage}
                         disabled={currentPage === 0}
-                        className="bg-pink-500 hover:bg-pink-600 disabled:bg-gray-400/60 text-white px-5 py-2 rounded-lg font-medium transition-all transform hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed text-sm backdrop-blur-sm"
+                        className="cursor-pointerbg-pink-500 hover:bg-pink-600 disabled:bg-gray-400/60 text-white px-5 py-2 rounded-lg font-medium transition-all transform hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed text-sm backdrop-blur-sm"
                       >
                         ← Prev
                       </button>
@@ -635,7 +632,7 @@ SAMPAI JUMPA DI SEASON II
                       <button
                         onClick={nextPage}
                         disabled={currentPage >= totalPages - 1}
-                        className="bg-pink-500/80 hover:bg-pink-600 disabled:bg-gray-400/60 text-white px-5 py-2 rounded-lg font-medium transition-all transform hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed text-sm backdrop-blur-sm"
+                        className="cursor-pointer bg-pink-500/80 hover:bg-pink-600 disabled:bg-gray-400/60 text-white px-5 py-2 rounded-lg font-medium transition-all transform hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed text-sm backdrop-blur-sm"
                       >
                         Next →
                       </button>
@@ -689,12 +686,12 @@ SAMPAI JUMPA DI SEASON II
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={handleNext}
-                        className="px-8 py-3 bg-white text-gray-800 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow"
+                        className="cursor-pointer px-8 py-3 bg-white text-gray-800 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow"
                       >
                         {isCorrect
                           ? currentQuestion < questions.length - 1
                             ? "Lanjut →"
-                            : "Lihat Hasil 🎉"
+                            : "Lihat Hasil"
                           : "Coba Lagi 🔄"}
                       </motion.button>
                     </div>
