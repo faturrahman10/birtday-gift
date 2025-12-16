@@ -23,7 +23,7 @@ function Home() {
     >
       <Hero />
       <Timeline />
-      <section className="px-4 md:px-10 py-16">
+      <section className="mb-8">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-10 items-stretch">
           <div className="w-full md:w-1/2">
             <Letter />
