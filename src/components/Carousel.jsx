@@ -119,7 +119,7 @@ const Carousel = ({ images, speed = 0.6, slowFactor = 0.15 }) => {
         Special Foto..
       </p>
 
-      <div className="mt-3 text-center text-white/80 text-xs">
+      <div className="mt-3 text-center dark:text-white/80 text-gray-500 text-xs">
         <p>💡 Fotonya masi banyak, kalo mau, klik tombol di atas</p>
       </div>
 

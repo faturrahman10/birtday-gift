@@ -52,7 +52,7 @@ const Timeline = () => {
   ];
 
   return (
-    <section className="py-20 px-4 md:px-8 relative overflow-hidden">
+    <section className="py-10 px-4 md:px-8 relative overflow-hidden">
       {/* JUDUL TIMELINE */}
       <motion.h2
         className="text-3xl md:text-4xl font-playfair text-center text-gray-800 dark:text-rose-100"
@@ -64,7 +64,7 @@ const Timeline = () => {
         Timeline
       </motion.h2>
 
-      <div className="mt-3 text-center text-white/80 text-xs">
+      <div className="mt-3 text-center dark:text-white/80 text-gray-500 text-xs">
         <p>💡 Timeline nya panjang tapi ini dulu aja ahh</p>
       </div>
 
@@ -146,7 +146,7 @@ const Timeline = () => {
         And Now ❤️
       </motion.h3>
 
-      <div className="mt-3 text-center text-white/80 text-xs">
+      <div className="mt-3 text-center dark:text-white/80 text-gray-500 text-xs">
         <p>💡 Pelan-pelan saja liatnya, fotonya kebanyakan</p>
       </div>
 

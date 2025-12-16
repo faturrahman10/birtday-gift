@@ -383,7 +383,7 @@ SAMPAI JUMPA DI SEASON II
   };
 
   return (
-    <section className="py-24 px-4 md:px-8 text-center">
+    <section className="py-1 px-4 md:px-8 text-center">
       <style>{`
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #fef3c7; border-radius: 10px; }
@@ -407,7 +407,7 @@ SAMPAI JUMPA DI SEASON II
         </p>
       </motion.div>
 
-      <div className="mt-3 text-center text-white/80 text-xs">
+      <div className="mt-3 text-center dark:text-white/80 text-gray-500 text-xs">
         <p>💡 Ceritanya agak panjang, jadi semoga nda bosan</p>
       </div>
 
