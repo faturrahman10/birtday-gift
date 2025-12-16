@@ -11,7 +11,7 @@ const Letter = () => {
   }, [open]);
 
   return (
-    <section className="py-24 px-4 md:px-8 text-center">
+    <section className="py-1 px-4 md:px-8 text-center">
       <motion.div
         onClick={() => setOpen(true)}
         whileHover={{ scale: 1.08, rotate: -2 }}
@@ -28,7 +28,7 @@ const Letter = () => {
         </p>
       </motion.div>
 
-      <div className="mt-3 text-center text-white/80 text-xs">
+      <div className="mt-3 text-center dark:text-white/80 text-gray-500 text-xs">
         <p>💡 Kartu ucapan dari fatur, dibaca yaah</p>
       </div>
 
