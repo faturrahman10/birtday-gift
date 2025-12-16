@@ -29,7 +29,7 @@ const Letter = () => {
       </p>
 
       <div className="mt-3 text-center dark:text-white/80 text-gray-500 text-xs">
-        <p>💡 Kartu ucapan dari fatur, dibaca yaah</p>
+        <p>💡 Kartu ucapan dari fatur, dibaca yaah, klik suratnya</p>
       </div>
 
       {/* MODAL */}

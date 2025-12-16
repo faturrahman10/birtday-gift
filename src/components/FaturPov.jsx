@@ -407,7 +407,7 @@ SAMPAI JUMPA DI SEASON II
       </p>
 
       <div className="mt-3 text-center dark:text-white/80 text-gray-500 text-xs">
-        <p>💡 Ceritanya agak panjang, jadi semoga nda bosan</p>
+        <p>💡 Ceritanya agak panjang, jadi semoga nda bosan, klik bukunya</p>
       </div>
 
       <AnimatePresence>
