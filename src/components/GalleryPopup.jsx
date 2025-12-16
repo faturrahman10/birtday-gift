@@ -35,17 +35,17 @@ export default function GalleryPopup({ open, onClose, onConfirm }) {
             <div className="text-center">
               <div className="text-5xl mb-4">📸</div>
               <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">
-                Kepo ko toh?
+                Foto Lainnya
               </h3>
               <p className="text-gray-600 dark:text-gray-300 mb-6">
-                Lanjut mi, liat foto super spesial mu
+                Lanjut liat foto lainnya?
               </p>
               <div className="flex gap-3 justify-center">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={onClose}
-                  className="px-6 py-3 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-xl font-semibold transition-colors"
+                  className="cursor-pointer px-6 py-3 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-xl font-semibold transition-colors"
                 >
                   Nanti deh
                 </motion.button>
@@ -54,9 +54,9 @@ export default function GalleryPopup({ open, onClose, onConfirm }) {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={onConfirm}
-                  className="px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow"
+                  className="cursor-pointer px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow"
                 >
-                  Aku kepo, lanjut!
+                  Lanjut!
                 </motion.button>
               </div>
             </div>
