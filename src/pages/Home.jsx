@@ -23,8 +23,17 @@ function Home() {
     >
       <Hero />
       <Timeline />
-      <Letter />
-      <FaturPov />
+      <section className="px-4 md:px-10 py-16">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-10 items-stretch">
+          <div className="w-full md:w-1/2">
+            <Letter />
+          </div>
+
+          <div className="w-full md:w-1/2">
+            <FaturPov />
+          </div>
+        </div>
+      </section>
       <Footer />
     </div>
   );
