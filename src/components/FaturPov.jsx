@@ -399,10 +399,10 @@ SAMPAI JUMPA DI SEASON II
           alt="Book"
           className="w-40 md:w-48 mx-auto drop-shadow-lg"
         />
-        <p className="font-playfair text-2xl text-rose-300 text-center">
-          Fatur's pov
-        </p>
       </motion.div>
+      <p className="font-playfair text-2xl text-rose-300 text-center">
+        Fatur's pov
+      </p>
 
       <div className="mt-3 text-center dark:text-white/80 text-gray-500 text-xs">
         <p>💡 Ceritanya agak panjang, jadi semoga nda bosan</p>
