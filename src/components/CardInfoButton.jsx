@@ -70,7 +70,7 @@ export default function CardInfoButton({
           z-30
           bg-white dark:bg-gray-800
           border border-gray-200 dark:border-gray-700
-          shadow-2xl rounded-xl p-3 w-72
+          shadow-2xl rounded-xl p-3 w-56
         `}
       >
         {step === 1 && (
