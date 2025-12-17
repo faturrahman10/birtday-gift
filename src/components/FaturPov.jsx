@@ -613,7 +613,6 @@ SAMPAI JUMPA DI SEASON II
                         startPage={0}
                         autoSize={true}
                         maxShadowOpacity={0.5}
-                        disableFlipByClick={true}
                       >
                         {allPages}
                       </HTMLFlipBook>
