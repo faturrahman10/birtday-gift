@@ -613,6 +613,7 @@ SAMPAI JUMPA DI SEASON II
                         startPage={0}
                         autoSize={true}
                         maxShadowOpacity={0.5}
+                        disableFlipByClick={true}
                       >
                         {allPages}
                       </HTMLFlipBook>
@@ -641,7 +642,9 @@ SAMPAI JUMPA DI SEASON II
                     </div>
 
                     <div className="mt-3 text-center text-white/80 text-xs">
-                      <p>💡 Klik tepi kanan/kiri buku untuk membalik halaman</p>
+                      <p>
+                        💡 Klik tombol next/prev buku untuk membalik halaman
+                      </p>
                     </div>
                   </motion.div>
                 </div>
