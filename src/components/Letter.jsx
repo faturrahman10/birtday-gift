@@ -3,12 +3,69 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const Letter = () => {
   const [open, setOpen] = useState(false);
+  const [displayedText, setDisplayedText] = useState("");
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
 
-  // Lock scroll background
+  const fullText = `Allo tantipku imutku🥰,
+
+Apara ditulis nte surat le😂, berdoa dulu deh, semoga sehat dan kuat terus jiwa raganya "anjaay jiwa raga", ndapapa sakit-sakit dikit sekali-kali, panas-panas dikit, bolokan dikit, atau batok-batok dikit, yang penting sembuhnya cepat terus sehat-sehat lagi, kalo kurang imun, bilang saja, nanti kupeluk😁
+
+Pokoknya sehat selalu, bahagia selalu, karirnya lancar, sama jangan sering marah-marah😂😂
+
+Aeh, aku tak tau lah bikin kata-kata romantis, agak geli na haha😂, intinya sayang kamu dindaa, lopyuu dindaa❤️😘, semoga selamanya ki, maap masi belum jadi laki-laki yang mapan, tapi pasti usaha terusna wujudkan'i semuanya. semoga nda bosan sama cowok satu ini hehee😁
+
+Nda bisa bikin surat panjang-panjang karna kepenuhan nanti layarnya haha, segitu dulu yaa beccu imutkuu😘😘`;
+
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
     return () => (document.body.style.overflow = "auto");
   }, [open]);
+
+  useEffect(() => {
+    if (!open) {
+      setDisplayedText("");
+      setIsTypingComplete(false);
+      return;
+    }
+
+    let currentIndex = 0;
+    const typingSpeed = 20;
+
+    const typingInterval = setInterval(() => {
+      if (currentIndex < fullText.length) {
+        setDisplayedText(fullText.slice(0, currentIndex + 1));
+        currentIndex++;
+      } else {
+        setIsTypingComplete(true);
+        clearInterval(typingInterval);
+      }
+    }, typingSpeed);
+
+    return () => clearInterval(typingInterval);
+  }, [open]);
+
+  const renderStyledText = (text) => {
+    const boldPhrases = ["kupeluk", "sama jangan sering marah-marah😂😂"];
+
+    let result = text;
+    boldPhrases.forEach((phrase) => {
+      const regex = new RegExp(`(${phrase})`, "g");
+      result = result.replace(regex, "**$1**");
+    });
+
+    const parts = result.split(/(\*\*.*?\*\*)/g);
+
+    return parts.map((part, index) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return (
+          <span key={index} className="font-semibold">
+            {part.slice(2, -2)}
+          </span>
+        );
+      }
+      return <span key={index}>{part}</span>;
+    });
+  };
 
   return (
     <section className="py-1 px-4 md:px-8 text-center">
@@ -55,21 +112,25 @@ const Letter = () => {
                 {/* CLOSE BUTTON */}
                 <button
                   onClick={() => setOpen(false)}
-                  className="
-                    absolute -top-3 -right-3 bg-white hover:bg-rose-50 text-rose-500 text-xl 
-                    w-10 h-10 rounded-full flex items-center justify-center shadow-md
-                    z-50 font-semibold cursor-pointer
-                  "
+                  className="absolute -top-3 -right-3 w-10 rounded-full bg-white hover:bg-rose-50 h-10 text-rose-500 text-xl cursor-pointer shadow-md font-semibold transition"
                 >
                   ✕
                 </button>
 
-                {/* Modal Card */}
+                {/* Modal Card*/}
                 <motion.div
-                  initial={{ scale: 0.9, y: 30 }}
-                  animate={{ scale: 1, y: 0 }}
+                  initial={{ scale: 0.8, opacity: 0, height: "auto" }}
+                  animate={{
+                    scale: 1,
+                    opacity: 1,
+                    height: "auto",
+                    transition: {
+                      scale: { duration: 0.3 },
+                      opacity: { duration: 0.3 },
+                      height: { duration: 0.5, ease: "easeOut" },
+                    },
+                  }}
                   exit={{ scale: 0.9, opacity: 0 }}
-                  transition={{ duration: 0.25 }}
                   className="
                     bg-rose-50 max-w-lg w-full rounded-2xl shadow-2xl border border-rose-200
                     overflow-hidden
@@ -77,43 +138,54 @@ const Letter = () => {
                 >
                   {/* Header */}
                   <div className="p-4 pb-4">
-                    <h3 className="font-playfair text-xl text-rose-400">
+                    <motion.h3
+                      className="font-playfair text-xl text-rose-400"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
                       Suratnya Patur 💌
-                    </h3>
+                    </motion.h3>
                   </div>
 
                   {/* BODY */}
-                  <div className="px-6 pb-8 overflow-y-auto max-h-[70vh]">
-                    <p className="font-poppins text-gray-700 leading-relaxed text-sm text-justify">
-                      Allo tantipku imutku🥰,
-                      <br />
-                      <br />
-                      Apara ditulis nte surat le😂, berdoa dulu deh, semoga
-                      sehat dan kuat terus jiwa raganya "anjaay jiwa raga",
-                      ndapapa sakit-sakit dikit sekali-kali, panas-panas dikit,
-                      bolokan dikit, atau batok-batok dikit, yang penting
-                      sembuhnya cepat terus sehat-sehat lagi, kalo kurang imun,
-                      bilang saja, nanti{" "}
-                      <span className="font-semibold">kupeluk</span>😁
-                      <br />
-                      <br />
-                      Pokoknya sehat selalu, bahagia selalu, karirnya lancar,{" "}
-                      <span className="font-semibold">
-                        sama jangan sering marah-marah😂😂
-                      </span>
-                      <br />
-                      <br />
-                      Aeh, aku tak tau lah bikin kata-kata romantis, agak geli
-                      na haha😂, intinya sayang kamu dindaa, lopyuu dindaa❤️😘,
-                      semoga selamanya ki, maap masi belum jadi laki-laki yang
-                      mapan, tapi pasti usaha terusna wujudkan'i semuanya.
-                      semoga nda bosan sama cowok satu ini hehee😁
-                      <br />
-                      <br />
-                      Nda bisa bikin surat panjang-panjang karna kepenuhan nanti
-                      layarnya haha, segitu dulu yaa beccu imutkuu😘😘
+                  <motion.div
+                    className="px-6 pb-8 overflow-y-auto max-h-[70vh]"
+                    layout
+                  >
+                    <p className="font-poppins text-gray-700 leading-relaxed text-sm text-justify whitespace-pre-line">
+                      {renderStyledText(displayedText)}
+                      {!isTypingComplete && (
+                        <motion.span
+                          className="inline-block w-1 h-4 bg-rose-400 ml-0.5"
+                          animate={{ opacity: [1, 0] }}
+                          transition={{ duration: 0.6, repeat: Infinity }}
+                        />
+                      )}
                     </p>
-                  </div>
+
+                    {/* Skip button*/}
+                    {!isTypingComplete && displayedText.length > 100 && (
+                      <motion.button
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 2 }}
+                        onClick={() => {
+                          setDisplayedText(fullText);
+                          setIsTypingComplete(true);
+                        }}
+                        className="
+                          mt-4 px-4 py-2  text-rose-400 text-xs 
+                          rounded-lg transition-colors cursor-pointer
+                          animate-pulse
+                        "
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        Skip Animation ⏭️
+                      </motion.button>
+                    )}
+                  </motion.div>
                 </motion.div>
               </div>
             </motion.div>
