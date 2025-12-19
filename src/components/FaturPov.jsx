@@ -384,7 +384,7 @@ SAMPAI JUMPA DI SEASON II
                       minHeight={isMobile ? 380 : 400}
                       maxHeight={isMobile ? 550 : 600}
                       showCover={true}
-                      mobileScrollSupport={true}
+                      useMouseEvents={!isMobile}
                       onFlip={onFlip}
                       onInit={(e) => {
                         if (e && e.object && e.object.pages) {
