@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Letter = () => {
   const [open, setOpen] = useState(false);
   const [displayedText, setDisplayedText] = useState("");
   const [isTypingComplete, setIsTypingComplete] = useState(false);
+
+  const typingIntervalRef = useRef(null);
 
   const fullText = `Allo tantipku imutku🥰,
 
@@ -16,32 +18,35 @@ Aeh, aku tak tau lah bikin kata-kata romantis, agak geli na haha😂, intinya sa
 
 Nda bisa bikin surat panjang-panjang karna kepenuhan nanti layarnya haha, segitu dulu yaa beccu imutkuu😘😘`;
 
+  /* Lock body scroll */
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
     return () => (document.body.style.overflow = "auto");
   }, [open]);
 
+  /* Typing effect */
   useEffect(() => {
     if (!open) {
       setDisplayedText("");
       setIsTypingComplete(false);
+      clearInterval(typingIntervalRef.current);
       return;
     }
 
     let currentIndex = 0;
     const typingSpeed = 20;
 
-    const typingInterval = setInterval(() => {
+    typingIntervalRef.current = setInterval(() => {
       if (currentIndex < fullText.length) {
         setDisplayedText(fullText.slice(0, currentIndex + 1));
         currentIndex++;
       } else {
         setIsTypingComplete(true);
-        clearInterval(typingInterval);
+        clearInterval(typingIntervalRef.current);
       }
     }, typingSpeed);
 
-    return () => clearInterval(typingInterval);
+    return () => clearInterval(typingIntervalRef.current);
   }, [open]);
 
   const renderStyledText = (text) => {
@@ -81,6 +86,7 @@ Nda bisa bikin surat panjang-panjang karna kepenuhan nanti layarnya haha, segitu
           className="w-30 md:w-38 mx-auto drop-shadow-lg"
         />
       </motion.div>
+
       <p className="font-playfair text-2xl text-rose-300 text-center">
         Greeting Card
       </p>
@@ -101,7 +107,7 @@ Nda bisa bikin surat panjang-panjang karna kepenuhan nanti layarnya haha, segitu
               exit={{ opacity: 0 }}
             />
 
-            {/* Scrollable wrapper */}
+            {/* Wrapper */}
             <motion.div
               className="fixed inset-0 z-53 overflow-y-auto overflow-x-hidden flex items-center justify-center px-4 py-10"
               initial={{ opacity: 0 }}
@@ -109,35 +115,23 @@ Nda bisa bikin surat panjang-panjang karna kepenuhan nanti layarnya haha, segitu
               exit={{ opacity: 0 }}
             >
               <div className="relative">
-                {/* CLOSE BUTTON */}
+                {/* Close */}
                 <button
                   onClick={() => setOpen(false)}
-                  className="absolute -top-3 -right-3 w-10 rounded-full bg-white hover:bg-rose-50 h-10 text-rose-500 text-xl cursor-pointer shadow-md font-semibold transition"
+                  className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-white hover:bg-rose-50 text-rose-500 text-xl cursor-pointer shadow-md font-semibold transition"
                 >
                   ✕
                 </button>
 
-                {/* Modal Card*/}
+                {/* Card */}
                 <motion.div
-                  initial={{ scale: 0.8, opacity: 0, height: "auto" }}
-                  animate={{
-                    scale: 1,
-                    opacity: 1,
-                    height: "auto",
-                    transition: {
-                      scale: { duration: 0.3 },
-                      opacity: { duration: 0.3 },
-                      height: { duration: 0.5, ease: "easeOut" },
-                    },
-                  }}
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0.9, opacity: 0 }}
-                  className="
-                    bg-rose-50 max-w-lg w-full rounded-2xl shadow-2xl border border-rose-200
-                    overflow-hidden
-                  "
+                  className="bg-rose-50 max-w-lg w-full rounded-2xl shadow-2xl border border-rose-200 overflow-hidden"
                 >
                   {/* Header */}
-                  <div className="p-4 pb-4">
+                  <div className="p-4">
                     <motion.h3
                       className="font-playfair text-xl text-rose-400"
                       initial={{ opacity: 0, y: -10 }}
@@ -148,11 +142,8 @@ Nda bisa bikin surat panjang-panjang karna kepenuhan nanti layarnya haha, segitu
                     </motion.h3>
                   </div>
 
-                  {/* BODY */}
-                  <motion.div
-                    className="px-6 pb-8 overflow-y-auto max-h-[70vh]"
-                    layout
-                  >
+                  {/* Body */}
+                  <motion.div className="px-6 pb-8 overflow-y-auto max-h-[70vh]">
                     <p className="font-poppins text-gray-700 leading-relaxed text-sm text-justify whitespace-pre-line">
                       {renderStyledText(displayedText)}
                       {!isTypingComplete && (
@@ -164,21 +155,15 @@ Nda bisa bikin surat panjang-panjang karna kepenuhan nanti layarnya haha, segitu
                       )}
                     </p>
 
-                    {/* Skip button*/}
+                    {/* Skip */}
                     {!isTypingComplete && displayedText.length > 100 && (
                       <motion.button
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 2 }}
                         onClick={() => {
+                          clearInterval(typingIntervalRef.current);
                           setDisplayedText(fullText);
                           setIsTypingComplete(true);
                         }}
-                        className="
-                          mt-4 px-4 py-2  text-rose-400 text-xs 
-                          rounded-lg transition-colors cursor-pointer
-                          animate-pulse
-                        "
+                        className="mt-4 px-4 py-2 text-rose-400 text-xs rounded-lg animate-pulse cursor-pointer"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
