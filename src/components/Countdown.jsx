@@ -158,43 +158,106 @@ const Countdown = ({ onFinish }) => {
         <AnimatePresence>
           <motion.div
             key="surprise"
-            className="relative z-20 text-center max-w-xl mx-auto px-4"
-            initial={{ opacity: 0, scale: 0.88 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, type: "spring" }}
+            className="relative z-20 text-center max-w-lg mx-auto px-4"
+            initial={{ opacity: 0, scale: 0.94, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h3 className="text-4xl font-playfair text-rose-600 dark:text-rose-300 mb-6">
-              🎉 Surprise Time! 🎉
-            </h3>
+            {/* Title */}
+            <motion.h3
+              className="
+                text-4xl md:text-5xl font-playfair font-semibold
+                text-rose-600 dark:text-rose-300
+                mb-10
+              "
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 1 }}
+            >
+              Surprise Time
+            </motion.h3>
 
-            <p className="text-lg text-gray-700 dark:text-gray-200 leading-relaxed mb-8">
-              Hallo tante dindaa😁
-              <br />
-              Ciee, balik lagi, 7 januari mi le
-              <br />
-              Ultah'i ban, umur kita akhirnya sama🥳
-              <br />
-              <br />
-              <span className="font-semibold">Klik ini👇</span>
-            </p>
-
-            <motion.button
-              onClick={() => {
-                onFinish();
+            {/* Message */}
+            <motion.div
+              className="
+                text-base md:text-lg
+                text-gray-700 dark:text-gray-200
+                leading-relaxed
+                space-y-3
+                mb-12
+              "
+              initial="hidden"
+              animate="show"
+              variants={{
+                show: {
+                  transition: { staggerChildren: 0.18 },
+                },
               }}
-              whileHover={{ scale: 1.1 }}
-              className="inline-block px-8 py-3 rounded-full bg-rose-500 text-white font-semibold text-lg shadow-lg hover:bg-rose-600 transition"
+            >
+              {[
+                "Hallo tante dindaa 😊",
+                "Ciee, balik lagi — 7 Januari mi le",
+                "Ultah’i ban, umur kita akhirnya sama 🥳",
+              ].map((text, i) => (
+                <motion.p
+                  key={i}
+                  variants={{
+                    hidden: { opacity: 0, y: 10 },
+                    show: { opacity: 1, y: 0 },
+                  }}
+                  transition={{ duration: 0.8 }}
+                >
+                  {text}
+                </motion.p>
+              ))}
+
+              <motion.p
+                className="pt-6 text-sm opacity-70"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.9 }}
+              >
+                Klik di bawah
+              </motion.p>
+            </motion.div>
+
+            {/* Button */}
+            <motion.button
+              onClick={onFinish}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.4, duration: 0.8 }}
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.95 }}
+              className="
+                cursor-pointer
+                inline-flex items-center gap-2
+                px-10 py-3
+                rounded-full
+                bg-rose-500
+                text-white
+                font-medium
+                text-base md:text-lg
+                shadow-md
+                hover:bg-rose-600
+                transition-all
+              "
             >
               🎁 Hadiah
             </motion.button>
 
+            {/* Footer */}
             <motion.p
-              className="mt-8 text-gray-600 dark:text-gray-300"
+              className="
+                mt-12
+                text-sm
+                text-gray-600 dark:text-gray-400
+              "
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
+              transition={{ delay: 1.8 }}
             >
-              Ma'acii, silahkan lanjut ❤️
+              Ma’acii, silahkan lanjut ❤️
             </motion.p>
           </motion.div>
         </AnimatePresence>
