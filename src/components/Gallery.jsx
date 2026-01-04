@@ -51,9 +51,13 @@ const Gallery = () => {
         transition-colors duration-700
       "
     >
-      <h2 className="text-3xl md:text-4xl font-playfair text-center mb-12 text-gray-800 dark:text-rose-100">
-        Gallery💞
+      <h2 className="text-3xl md:text-4xl font-playfair text-center mb-2 mt-8 text-gray-800 dark:text-rose-100">
+        Secret Gallery😁
       </h2>
+
+      <div className="mt-2 mb-10 text-center dark:text-white/80 text-gray-500 text-xs">
+        <p>💡 Foto rahasia yang kusimpan khusus</p>
+      </div>
 
       <div className="columns-2 md:columns-4 gap-1 max-w-6xl mx-auto space-y-1">
         {images.map((img, index) => {
