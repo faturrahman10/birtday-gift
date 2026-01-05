@@ -58,7 +58,7 @@ const Countdown = ({ onFinish }) => {
   const [confettiList, setConfettiList] = useState([]);
 
   useEffect(() => {
-    const target = new Date("2026-01-07T00:30:00");
+    const target = new Date("2026-01-07T00:14:00");
 
     const interval = setInterval(() => {
       const now = new Date();
